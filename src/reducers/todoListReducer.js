@@ -28,7 +28,7 @@ export default function(state=initialState, action) {
     case DELETE_TODO_REJECTED:
       msg = action.payload.response.data.message;
       if (!msg)
-        msg = "Unknown Error.";
+        msg = 'Unknown Error.';
       return {
         ...state,
         loading: false,
@@ -43,9 +43,9 @@ export default function(state=initialState, action) {
       msg = action.payload.response.data.message;
 
       if (!msg)
-        msg = "Unknown Error.";
+        msg = 'Unknown Error.';
 
-      if (msg.includes("No todos found."))
+      if (msg.includes('No todos found.'))
         mutation.error = msg;
       return {...state, ...mutation}
 

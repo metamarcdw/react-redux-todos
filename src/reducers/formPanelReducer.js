@@ -1,7 +1,7 @@
 import { FORM_PANEL_UPDATE } from '../actions/types';
 
 const initialState = {
-  "text": ""
+  'text': ''
 };
 
 export default function(state=initialState, action) {

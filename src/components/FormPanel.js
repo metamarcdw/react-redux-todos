@@ -8,12 +8,12 @@ export const FormPanel = props => {
 
   return (
     <FormGroup>
-      <Label for="textInput">Enter new todo text:</Label>
+      <Label for='textInput'>Enter new todo text:</Label>
       <Input
         onChange={onTextChange}
         value={props.formPanel.text}
-        id="textInput"
-        placeholder="What to do?" />
+        id='textInput'
+        placeholder='What to do?' />
     </FormGroup>
   );
 };

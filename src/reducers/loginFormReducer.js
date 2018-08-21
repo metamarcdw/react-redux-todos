@@ -4,8 +4,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  usernameText: "",
-  passwordText: ""
+  usernameText: '',
+  passwordText: ''
 };
 
 export default function(state=initialState, action) {

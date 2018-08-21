@@ -22,7 +22,7 @@ export class TodoList extends Component {
     const { token } = this.props.loginUser;
     return () => {
       let shouldDelete = true;
-      if (!todo.complete && !window.confirm("Delete incomplete Todo?"))
+      if (!todo.complete && !window.confirm('Delete incomplete Todo?'))
         shouldDelete = false;
       if (shouldDelete)
         this.props.deleteTodo(todo.id, token);
@@ -33,7 +33,7 @@ export class TodoList extends Component {
     return (
       <div className={styles.flexCenter}>
         <RingLoader
-          color="#999"
+          color='#999'
           loading={true} />
       </div>
     );
@@ -44,8 +44,8 @@ export class TodoList extends Component {
       return (
         <div className={`${styles.flexColumn} ${styles.flexCenter} ${styles.margin}`}>
           <FontAwesomeIcon
-            name="check-circle"
-            size="2x"
+            name='check-circle'
+            size='2x'
             className={styles.greenText} />
         </div>
       );
@@ -65,13 +65,13 @@ export class TodoList extends Component {
         </div>
         <Button
           className={`${styles.fixedHeight} ${styles.margin}`}
-          color="primary"
+          color='primary'
           onClick={this.onClickComplete(todo)}
           disabled={todo.complete}
         >Complete</Button>
         <Button
           className={styles.fixedHeight}
-          color="danger"
+          color='danger'
           onClick={this.onClickDelete(todo)}
         >Delete</Button>
       </ListGroupItem>

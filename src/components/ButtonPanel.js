@@ -8,14 +8,14 @@ export class ButtonPanel extends Component {
     const { token } = this.props.loginUser;
     if (text) {
       this.props.addNewTodo(text, token);
-      this.props.formPanelUpdate("");
+      this.props.formPanelUpdate('');
     }
   }
 
   onClickClear = () => {
     const { text } = this.props.formPanel;
     if (text) {
-      this.props.formPanelUpdate("");
+      this.props.formPanelUpdate('');
     }
   }
 
@@ -31,13 +31,13 @@ export class ButtonPanel extends Component {
           <Button
             className={styles.fixedHeight}
             onClick={this.onClickAdd}
-            color={styles.success}
-            type={styles.submit}
+            color='success'
+            type='submit'
           >Add Todo</Button>
           <Button
             className={styles.fixedHeight}
             onClick={this.onClickClear}
-            color={styles.warning}
+            color='warning'
           >Clear Text</Button>
           <Button
             className={styles.fixedHeight}
