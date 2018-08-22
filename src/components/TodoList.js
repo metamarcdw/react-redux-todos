@@ -53,7 +53,7 @@ export class TodoList extends Component {
 
   renderListItem = todo => (
     <ListGroupItem
-      className='flexCenter'
+      className='d-flex flexCenter'
       key={todo.id}
     >
       {this.renderCheckmark(todo)}
