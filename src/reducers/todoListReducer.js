@@ -57,31 +57,32 @@ export default function(state=initialState, action) {
       }
 
     case ADD_NEW_TODO_FULFILLED:
-      const { newTodo } = action.payload.data;
+      const { new_todo } = action.payload.data;
       return {
         ...state,
         loading: false,
-        todos: state.todos.concat(newTodo),
+        todos: state.todos.concat(new_todo),
         error: null
       }
 
     case COMPLETE_TODO_FULFILLED:
-      const { completedTodo } = action.payload.data;
+      const { completed_todo } = action.payload.data;
       return {
         ...state,
         loading: false,
         todos: state.todos.map(todo => {
-          todo.complete = todo.id === completedTodo.id;
+          if (todo.id === completed_todo.id)
+            todo.complete = true;
           return todo;
         })
       }
 
     case DELETE_TODO_FULFILLED:
-      const { deletedTodo } = action.payload.data;
+      const { deleted_todo } = action.payload.data;
       return {
         ...state,
         loading: false,
-        todos: state.todos.filter(todo => todo.id !== deletedTodo.id)
+        todos: state.todos.filter(todo => todo.id !== deleted_todo.id)
       }
 
     default:
