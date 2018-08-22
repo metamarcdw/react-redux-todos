@@ -10,33 +10,29 @@ import { Row, Col, Jumbotron, Form } from 'reactstrap';
 import styles from '../style.css';
 
 export class App extends Component {
-  renderLoginPanel = () => {
-    return (
-      <div>
-        <h5>Please Login:</h5>
-        <LoginFormContainer />
-      </div>
-    );
-  }
+  renderLoginPanel = () => (
+    <div>
+      <h5>Please Login:</h5>
+      <LoginFormContainer />
+    </div>
+  );
 
   onSubmit = e => {
     e.preventDefault();
   }
 
-  renderTodoPanel = () => {
-    return (
-      <div>
-        <TodoListContainer />
-        <Form
-          className={styles.padding}
-          onSubmit={this.onSubmit}
-        >
-          <FormPanelContainer />
-          <ButtonPanelContainer />
-        </Form>
-      </div>
-    );
-  }
+  renderTodoPanel = () => (
+    <div>
+      <TodoListContainer />
+      <Form
+        className={styles.padding}
+        onSubmit={this.onSubmit}
+      >
+        <FormPanelContainer />
+        <ButtonPanelContainer />
+      </Form>
+    </div>
+  );
 
   render() {
     const { loggedIn, error } = this.props.loginUser;

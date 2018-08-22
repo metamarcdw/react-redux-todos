@@ -29,15 +29,13 @@ export class TodoList extends Component {
     };
   }
 
-  renderSpinner = () => {
-    return (
-      <div className={styles.flexCenter}>
-        <RingLoader
-          color='#999'
-          loading={true} />
-      </div>
-    );
-  }
+  renderSpinner = () => (
+    <div className={styles.flexCenter}>
+      <RingLoader
+        color='#999'
+        loading={true} />
+    </div>
+  );
 
   renderCheckmark = todo => {
     if (todo.complete) {
@@ -53,30 +51,28 @@ export class TodoList extends Component {
     return null;
   }
 
-  renderListItem = todo => {
-    return (
-      <ListGroupItem
-        className={styles.flexCenter}
-        key={todo.id}
-      >
-        {this.renderCheckmark(todo)}
-        <div className={styles.listItem}>
-          {todo.text}
-        </div>
-        <Button
-          className={`${styles.fixedHeight} ${styles.margin}`}
-          color='primary'
-          onClick={this.onClickComplete(todo)}
-          disabled={todo.complete}
-        >Complete</Button>
-        <Button
-          className={styles.fixedHeight}
-          color='danger'
-          onClick={this.onClickDelete(todo)}
-        >Delete</Button>
-      </ListGroupItem>
-    );
-  }
+  renderListItem = todo => (
+    <ListGroupItem
+      className={styles.flexCenter}
+      key={todo.id}
+    >
+      {this.renderCheckmark(todo)}
+      <div className={styles.listItem}>
+        {todo.text}
+      </div>
+      <Button
+        className={`${styles.fixedHeight} ${styles.margin}`}
+        color='primary'
+        onClick={this.onClickComplete(todo)}
+        disabled={todo.complete}
+      >Complete</Button>
+      <Button
+        className={styles.fixedHeight}
+        color='danger'
+        onClick={this.onClickDelete(todo)}
+      >Delete</Button>
+    </ListGroupItem>
+  );
 
   render() {
     const { todoList } = this.props;
