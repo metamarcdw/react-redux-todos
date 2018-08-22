@@ -7,7 +7,7 @@ import {
   ButtonPanelContainer,
   TodoListContainer
 } from '../containers';
-import styles from '../style.css';
+import '../style.css';
 
 export class App extends Component {
   renderLoginPanel = () => (
@@ -25,7 +25,7 @@ export class App extends Component {
     <div>
       <TodoListContainer />
       <Form
-        className={styles.padding}
+        className='padding'
         onSubmit={this.onSubmit}
       >
         <FormPanelContainer />
@@ -45,12 +45,12 @@ export class App extends Component {
           xs='12'
         >
           <Jumbotron>
-            <div className={styles.flexColumn}>
-              <div className={`${styles.flexCenter} ${styles.padding}`}>
+            <div className='flexColumn'>
+              <div className='flexCenter padding'>
                 <h2>My Todos</h2>
               </div>
               {loggedIn ? this.renderTodoPanel() : this.renderLoginPanel()}
-              <span className={styles.redText}>{error}</span>
+              <span className='redText'>{error}</span>
             </div>
           </Jumbotron>
         </Col>

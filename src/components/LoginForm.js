@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import styles from '../style.css';
+import '../style.css';
 
 export class LoginForm extends Component {
   onInputChange = e => {
@@ -26,7 +26,7 @@ export class LoginForm extends Component {
 
   render() {
     return (
-      <Form className={styles.padding} onSubmit={this.onSubmitLogin}>
+      <Form className='padding' onSubmit={this.onSubmitLogin}>
         <FormGroup>
           <Label for='usernameText'>Enter your username</Label>
           <Input
@@ -44,11 +44,11 @@ export class LoginForm extends Component {
             id='passwordText' />
         </FormGroup>
         <Button
-          className={`${styles.fixedHeight} ${styles.margin}`}
+          className='fixedHeight margin'
           type='submit'
         >Login</Button>
         <Button
-          className={styles.fixedHeight}
+          className='fixedHeight'
           onClick={this.onClickRegister}
         >Register</Button>
       </Form>

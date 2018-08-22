@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import styles from '../style.css';
+import '../style.css';
 
 export class ButtonPanel extends Component {
   onClickAdd = () => {
@@ -26,21 +26,21 @@ export class ButtonPanel extends Component {
 
   render() {
     return (
-      <div className={styles.flexCenter}>
-        <div className={styles.flexContainer}>
+      <div className='flexCenter'>
+        <div className='flexContainer'>
           <Button
-            className={styles.fixedHeight}
+            className='fixedHeight'
             onClick={this.onClickAdd}
             color='success'
             type='submit'
           >Add Todo</Button>
           <Button
-            className={styles.fixedHeight}
+            className='fixedHeight'
             onClick={this.onClickClear}
             color='warning'
           >Clear Text</Button>
           <Button
-            className={styles.fixedHeight}
+            className='fixedHeight'
             onClick={this.onClickLogout}
           >Logout</Button>
         </div>

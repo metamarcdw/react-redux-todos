@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { RingLoader } from 'react-spinners';
 import FontAwesomeIcon from 'react-fontawesome';
-import styles from '../style.css';
+import '../style.css';
 
 export class TodoList extends Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ export class TodoList extends Component {
   }
 
   renderSpinner = () => (
-    <div className={styles.flexCenter}>
+    <div className='flexCenter'>
       <RingLoader
         color='#999'
         loading={true} />
@@ -40,11 +40,11 @@ export class TodoList extends Component {
   renderCheckmark = todo => {
     if (todo.complete) {
       return (
-        <div className={`${styles.flexColumn} ${styles.flexCenter} ${styles.margin}`}>
+        <div className='flexColumn flexCenter margin'>
           <FontAwesomeIcon
             name='check-circle'
             size='2x'
-            className={styles.greenText} />
+            className='greenText' />
         </div>
       );
     }
@@ -53,21 +53,21 @@ export class TodoList extends Component {
 
   renderListItem = todo => (
     <ListGroupItem
-      className={styles.flexCenter}
+      className='flexCenter'
       key={todo.id}
     >
       {this.renderCheckmark(todo)}
-      <div className={styles.listItem}>
+      <div className='listItem'>
         {todo.text}
       </div>
       <Button
-        className={`${styles.fixedHeight} ${styles.margin}`}
+        className='fixedHeight margin'
         color='primary'
         onClick={this.onClickComplete(todo)}
         disabled={todo.complete}
       >Complete</Button>
       <Button
-        className={styles.fixedHeight}
+        className='fixedHeight'
         color='danger'
         onClick={this.onClickDelete(todo)}
       >Delete</Button>
@@ -84,7 +84,7 @@ export class TodoList extends Component {
         <ListGroup>
           {todoList.todos.map(this.renderListItem)}
         </ListGroup>
-        <span className={styles.redText}>{todoList.error}</span>
+        <span className='redText'>{todoList.error}</span>
       </div>
     );
   }
