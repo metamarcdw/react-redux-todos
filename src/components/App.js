@@ -1,12 +1,12 @@
+import React, { Component } from 'react';
+import { Row, Col, Jumbotron, Form } from 'reactstrap';
+
 import {
   LoginFormContainer,
   FormPanelContainer,
   ButtonPanelContainer,
   TodoListContainer
 } from '../containers';
-
-import React, { Component } from 'react';
-import { Row, Col, Jumbotron, Form } from 'reactstrap';
 import styles from '../style.css';
 
 export class App extends Component {
