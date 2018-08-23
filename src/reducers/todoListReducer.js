@@ -12,7 +12,6 @@ const initialState = {
 };
 
 export default function(state=initialState, action) {
-  let msg;
   switch(action.type) {
     case FETCH_ALL_TODOS_PENDING:
     case ADD_NEW_TODO_PENDING:
@@ -26,9 +25,8 @@ export default function(state=initialState, action) {
     case ADD_NEW_TODO_REJECTED:
     case COMPLETE_TODO_REJECTED:
     case DELETE_TODO_REJECTED:
-      msg = action.payload.response.data.message;
-      if (!msg)
-        msg = 'Unknown Error.';
+      var { data } = action.payload.response;
+      const msg = (data && data.message) ? data.message : 'Unknown Error.';
       return {
         ...state,
         loading: false,
@@ -36,17 +34,13 @@ export default function(state=initialState, action) {
       }
 
     case FETCH_ALL_TODOS_REJECTED:
-      let mutation = {
+      const mutation = {
         loading: false,
         todos: []
       };
-      msg = action.payload.response.data.message;
 
-      if (!msg)
-        msg = 'Unknown Error.';
-
-      if (msg.includes('No todos found.'))
-        mutation.error = msg;
+      var { data } = action.payload.response;
+      mutation.error = (data && data.message) ? data.message : 'Unknown Error.';
       return {...state, ...mutation}
 
     case FETCH_ALL_TODOS_FULFILLED:
