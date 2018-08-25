@@ -8,13 +8,13 @@ import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const app = (
-    <Provider store={store}>
-        <AppContainer />
-    </Provider>
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>
 );
 
 try {
-    ReactDOM.render(app, document.getElementById("root"));
+  ReactDOM.render(app, document.getElementById("root"));
 } catch (error) { }
 
 registerServiceWorker();
