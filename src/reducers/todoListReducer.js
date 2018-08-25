@@ -1,8 +1,8 @@
 import {
   FETCH_ALL_TODOS_PENDING, FETCH_ALL_TODOS_FULFILLED, FETCH_ALL_TODOS_REJECTED,
-  ADD_NEW_TODO_PENDING, ADD_NEW_TODO_FULFILLED, ADD_NEW_TODO_REJECTED,
-  COMPLETE_TODO_PENDING, COMPLETE_TODO_FULFILLED, COMPLETE_TODO_REJECTED,
-  DELETE_TODO_PENDING, DELETE_TODO_FULFILLED, DELETE_TODO_REJECTED
+  ADD_NEW_TODO_FULFILLED, ADD_NEW_TODO_REJECTED,
+  COMPLETE_TODO_FULFILLED, COMPLETE_TODO_REJECTED,
+  DELETE_TODO_FULFILLED, DELETE_TODO_REJECTED
 } from '../actions/types';
 
 const initialState = {
@@ -14,12 +14,10 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case FETCH_ALL_TODOS_PENDING:
-    case ADD_NEW_TODO_PENDING:
-    case COMPLETE_TODO_PENDING:
-    case DELETE_TODO_PENDING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        todos: []
       }
 
     case ADD_NEW_TODO_REJECTED:
