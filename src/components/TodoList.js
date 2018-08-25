@@ -33,7 +33,9 @@ export class TodoList extends Component {
     <div className='flexCenter'>
       <RingLoader
         color='#999'
+        size={42}
         loading={true} />
+      Loading..
     </div>
   );
 
@@ -76,15 +78,13 @@ export class TodoList extends Component {
 
   render() {
     const { todoList } = this.props;
-    if (todoList.loading)
-      return this.renderSpinner();
-
     return (
       <div>
         <ListGroup>
           {todoList.todos.map(this.renderListItem)}
         </ListGroup>
         <span className='redText'>{todoList.error}</span>
+        {todoList.loading ? this.renderSpinner() : null}
       </div>
     );
   }
