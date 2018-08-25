@@ -31,7 +31,7 @@ export default function(state=initialState, action) {
 
     case REGISTER_USER_REJECTED:
     case LOGIN_USER_REJECTED:
-      const { data } = action.payload.response;
+      const { data } = action.payload.response || null;
       const msg = (data && data.message) ? data.message : 'Unknown Error.';
       return {
         ...state,

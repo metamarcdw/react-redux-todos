@@ -25,7 +25,7 @@ export default function(state=initialState, action) {
     case ADD_NEW_TODO_REJECTED:
     case COMPLETE_TODO_REJECTED:
     case DELETE_TODO_REJECTED:
-      var { data } = action.payload.response;
+      const { data } = action.payload.response || null;
       const msg = (data && data.message) ? data.message : 'Unknown Error.';
       return {
         ...state,
@@ -39,8 +39,8 @@ export default function(state=initialState, action) {
         todos: []
       };
 
-      var { data } = action.payload.response;
-      mutation.error = (data && data.message) ? data.message : 'Unknown Error.';
+      const { _data } = action.payload.response || null;
+      mutation.error = (_data && _data.message) ? _data.message : 'Unknown Error.';
       return {...state, ...mutation}
 
     case FETCH_ALL_TODOS_FULFILLED:

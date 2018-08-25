@@ -7,10 +7,14 @@ import { AppContainer } from './containers';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const app = (
+export const app = (
     <Provider store={store}>
         <AppContainer />
     </Provider>
 );
-ReactDOM.render(app, document.getElementById("root"));
+
+try {
+    ReactDOM.render(app, document.getElementById("root"));
+} catch (error) { }
+
 registerServiceWorker();
