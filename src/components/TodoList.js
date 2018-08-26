@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { RingLoader } from 'react-spinners';
 import FontAwesomeIcon from 'react-fontawesome';
 import '../style.css';
 
 export class TodoList extends Component {
+
+  static propTypes = {
+    token: PropTypes.string.isRequired,
+    todos: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string,
+    fetchAllTodos: PropTypes.func.isRequired,
+    completeTodo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
     const { token, fetchAllTodos } = this.props;
     fetchAllTodos(token);

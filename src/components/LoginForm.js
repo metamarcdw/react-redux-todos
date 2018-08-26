@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import '../style.css';
 
 export class LoginForm extends Component {
+
+  static propTypes = {
+    usernameText: PropTypes.string,
+    passwordText: PropTypes.string,
+    loginFormUpdate: PropTypes.func.isRequired,
+    clearLoginForm: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    registerUser: PropTypes.func.isRequired
+  };
+
   onInputChange = e => {
     this.props.loginFormUpdate(e.target.id, e.target.value);
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Jumbotron, Form } from 'reactstrap';
 
 import {
@@ -10,6 +11,12 @@ import {
 import '../style.css';
 
 export class App extends Component {
+
+  static propTypes = {
+    loggedIn: PropTypes.bool.isRequired,
+    error: PropTypes.string
+  };
+
   renderLoginPanel = () => (
     <div>
       <h5>Please Login:</h5>

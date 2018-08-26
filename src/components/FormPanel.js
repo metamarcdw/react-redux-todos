@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
 
 export const FormPanel = props => {
+
   const onTextChange = e => {
     props.formPanelUpdate(e.target.value);
   };
@@ -16,4 +18,9 @@ export const FormPanel = props => {
         placeholder='What to do?' />
     </FormGroup>
   );
+};
+
+FormPanel.propTypes = {
+  text: PropTypes.string,
+  formPanelUpdate: PropTypes.func.isRequired
 };

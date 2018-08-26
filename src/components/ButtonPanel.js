@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import '../style.css';
 
 export class ButtonPanel extends Component {
+
+  static propTypes = {
+    text: PropTypes.string,
+    token: PropTypes.string.isRequired,
+    addNewTodo: PropTypes.func.isRequired,
+    formPanelUpdate: PropTypes.func.isRequired,
+    logoutUser: PropTypes.func.isRequired
+  };
+
   onClickAdd = () => {
     const { text, token, addNewTodo, formPanelUpdate } = this.props;
     if (text) {
