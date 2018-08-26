@@ -12,14 +12,12 @@ const mapStateToProps = state => {
   return { usernameText, passwordText };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loginFormUpdate: (u, p) => dispatch(loginFormUpdate(u, p)),
-    clearLoginForm: () => dispatch(clearLoginForm()),
-    loginUser: (u, p) => dispatch(loginUser(u, p)),
-    registerUser: (u, p) => dispatch(registerUser(u, p))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  loginFormUpdate: (u, p) => dispatch(loginFormUpdate(u, p)),
+  clearLoginForm: () => dispatch(clearLoginForm()),
+  loginUser: (u, p) => dispatch(loginUser(u, p)),
+  registerUser: (u, p) => dispatch(registerUser(u, p))
+});
 
 export const LoginFormContainer = connect(
   mapStateToProps,

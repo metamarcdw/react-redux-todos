@@ -12,13 +12,11 @@ const mapStateToProps = state => {
   return { token, todos, loading, error }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchAllTodos: t => dispatch(fetchAllTodos(t)),
-    completeTodo: (i, t) => dispatch(completeTodo(i, t)),
-    deleteTodo: (i, t) => dispatch(deleteTodo(i, t))
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  fetchAllTodos: t => dispatch(fetchAllTodos(t)),
+  completeTodo: (i, t) => dispatch(completeTodo(i, t)),
+  deleteTodo: (i, t) => dispatch(deleteTodo(i, t))
+});
 
 export const TodoListContainer = connect(
   mapStateToProps,

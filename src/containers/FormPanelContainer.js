@@ -7,11 +7,9 @@ const mapStateToProps = state => {
   return { text };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    formPanelUpdate: t => dispatch(formPanelUpdate(t))
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  formPanelUpdate: t => dispatch(formPanelUpdate(t))
+});
 
 export const FormPanelContainer = connect(
   mapStateToProps,

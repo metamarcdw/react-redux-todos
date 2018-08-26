@@ -8,13 +8,11 @@ const mapStateToProps = state => {
   return { text, token };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addNewTodo: (tx, to) => dispatch(addNewTodo(tx, to)),
-    formPanelUpdate: t => dispatch(formPanelUpdate(t)),
-    logoutUser: () => dispatch(logoutUser())
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  addNewTodo: (tx, to) => dispatch(addNewTodo(tx, to)),
+  formPanelUpdate: t => dispatch(formPanelUpdate(t)),
+  logoutUser: () => dispatch(logoutUser())
+});
 
 export const ButtonPanelContainer = connect(
   mapStateToProps,
