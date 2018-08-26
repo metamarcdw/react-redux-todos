@@ -39,26 +39,21 @@ export class TodoList extends Component {
     </div>
   );
 
-  renderCheckmark = todo => {
-    if (todo.complete) {
-      return (
-        <div className='flexColumn flexCenter margin'>
-          <FontAwesomeIcon
-            name='check-circle'
-            size='2x'
-            className='greenText' />
-        </div>
-      );
-    }
-    return null;
-  }
+  renderCheckmark = () => (
+    <div className='flexColumn flexCenter margin'>
+      <FontAwesomeIcon
+        name='check-circle'
+        size='2x'
+        className='greenText' />
+    </div>
+  );
 
   renderListItem = todo => (
     <ListGroupItem
       className='d-flex flexCenter'
       key={todo.id}
     >
-      {this.renderCheckmark(todo)}
+      {todo.complete ? this.renderCheckmark() : null}
       <div className='listItem'>
         {todo.text}
       </div>
