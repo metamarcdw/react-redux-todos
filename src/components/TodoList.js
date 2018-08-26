@@ -6,26 +6,26 @@ import '../style.css';
 
 export class TodoList extends Component {
   componentDidMount() {
-    const { token } = this.props.loginUser;
-    this.props.fetchAllTodos(token);
+    const { token, fetchAllTodos } = this.props;
+    fetchAllTodos(token);
   }
 
   onClickComplete = todo => {
-    const { token } = this.props.loginUser;
+    const { token, completeTodo } = this.props;
     return () => {
       if (!todo.complete)
-        this.props.completeTodo(todo.id, token);
+        completeTodo(todo.id, token);
     };
   }
 
   onClickDelete = todo => {
-    const { token } = this.props.loginUser;
+    const { token, deleteTodo } = this.props;
     return () => {
       let shouldDelete = true;
       if (!todo.complete && !window.confirm('Delete incomplete Todo?'))
         shouldDelete = false;
       if (shouldDelete)
-        this.props.deleteTodo(todo.id, token);
+        deleteTodo(todo.id, token);
     };
   }
 
@@ -72,14 +72,14 @@ export class TodoList extends Component {
   );
 
   render() {
-    const { todoList } = this.props;
+    const { todos, loading, error } = this.props;
     return (
       <div>
         <ListGroup>
-          {todoList.todos.map(this.renderListItem)}
+          {todos.map(this.renderListItem)}
         </ListGroup>
-        <span className='redText'>{todoList.error}</span>
-        {todoList.loading ? this.renderSpinner() : null}
+        <span className='redText'>{error}</span>
+        {loading ? this.renderSpinner() : null}
       </div>
     );
   }

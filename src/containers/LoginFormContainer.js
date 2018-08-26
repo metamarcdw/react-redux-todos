@@ -8,7 +8,8 @@ import {
 import { LoginForm } from '../components';
 
 const mapStateToProps = state => {
-  return { loginForm: state.loginForm };
+  const { usernameText, passwordText } = state.loginForm;
+  return { usernameText, passwordText };
 };
 
 const mapDispatchToProps = dispatch => {

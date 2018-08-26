@@ -7,10 +7,9 @@ import {
 import { TodoList } from '../components';
 
 const mapStateToProps = state => {
-  return {
-    todoList: state.todoList,
-    loginUser: state.loginUser
-  }
+  const { token } = state.loginUser;
+  const { todos, loading, error } = state.todoList;
+  return { token, todos, loading, error }
 };
 
 const mapDispatchToProps = dispatch => {

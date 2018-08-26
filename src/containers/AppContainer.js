@@ -2,11 +2,8 @@ import { App } from '../components';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
-  return {
-    loginUser: state.loginUser
-  }
+  const { loggedIn, error } = state.loginUser;
+  return { loggedIn, error };
 };
 
-export const AppContainer = connect(
-  mapStateToProps
-)(App);
+export const AppContainer = connect(mapStateToProps)(App);

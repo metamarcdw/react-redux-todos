@@ -3,10 +3,9 @@ import { addNewTodo, formPanelUpdate, logoutUser } from '../actions/actions';
 import { ButtonPanel } from '../components';
 
 const mapStateToProps = state => {
-  return {
-    loginUser: state.loginUser,
-    formPanel: state.formPanel
-  };
+  const { text } = state.formPanel;
+  const { token } = state.loginUser;
+  return { text, token };
 };
 
 const mapDispatchToProps = dispatch => {

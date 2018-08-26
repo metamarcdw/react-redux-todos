@@ -4,18 +4,17 @@ import '../style.css';
 
 export class ButtonPanel extends Component {
   onClickAdd = () => {
-    const { text } = this.props.formPanel;
-    const { token } = this.props.loginUser;
+    const { text, token, addNewTodo, formPanelUpdate } = this.props;
     if (text) {
-      this.props.addNewTodo(text, token);
-      this.props.formPanelUpdate('');
+      addNewTodo(text, token);
+      formPanelUpdate('');
     }
   }
 
   onClickClear = () => {
-    const { text } = this.props.formPanel;
+    const { text, formPanelUpdate } = this.props;
     if (text) {
-      this.props.formPanelUpdate('');
+      formPanelUpdate('');
     }
   }
 

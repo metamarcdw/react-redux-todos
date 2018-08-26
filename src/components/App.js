@@ -33,7 +33,7 @@ export class App extends Component {
   );
 
   render() {
-    const { loggedIn, error } = this.props.loginUser;
+    const { loggedIn, error } = this.props;
     return (
       < Row >
         <Col

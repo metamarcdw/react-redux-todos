@@ -8,30 +8,31 @@ export class LoginForm extends Component {
   }
 
   onSubmitLogin = e => {
-    const { usernameText, passwordText } = this.props.loginForm;
+    const { usernameText, passwordText, clearLoginForm, loginUser } = this.props;
     if (usernameText && passwordText) {
-      this.props.clearLoginForm();
-      this.props.loginUser(usernameText, passwordText);
+      clearLoginForm();
+      loginUser(usernameText, passwordText);
     }
     e.preventDefault();
   }
 
   onClickRegister = () => {
-    const { usernameText, passwordText } = this.props.loginForm;
+    const { usernameText, passwordText, clearLoginForm, registerUser } = this.props;
     if (usernameText && passwordText) {
-      this.props.clearLoginForm();
-      this.props.registerUser(usernameText, passwordText);
+      clearLoginForm();
+      registerUser(usernameText, passwordText);
     }
   }
 
   render() {
+    const { usernameText, passwordText } = this.props;
     return (
       <Form className='padding' onSubmit={this.onSubmitLogin}>
         <FormGroup>
           <Label for='usernameText'>Enter your username</Label>
           <Input
             onChange={this.onInputChange}
-            value={this.props.loginForm.usernameText}
+            value={usernameText}
             placeholder='Your Username'
             id='usernameText' />
         </FormGroup>
@@ -39,7 +40,7 @@ export class LoginForm extends Component {
           <Label for='passwordText'>Enter your password</Label>
           <Input
             onChange={this.onInputChange}
-            value={this.props.loginForm.passwordText}
+            value={passwordText}
             type='password'
             id='passwordText' />
         </FormGroup>

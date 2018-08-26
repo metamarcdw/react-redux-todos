@@ -3,7 +3,8 @@ import { formPanelUpdate } from '../actions/actions';
 import { FormPanel } from '../components';
 
 const mapStateToProps = state => {
-  return { formPanel: state.formPanel };
+  const { text } = state.formPanel;
+  return { text };
 };
 
 const mapDispatchToProps = dispatch => {

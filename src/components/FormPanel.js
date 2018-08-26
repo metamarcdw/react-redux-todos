@@ -11,7 +11,7 @@ export const FormPanel = props => {
       <Label for='textInput'>Enter new todo text:</Label>
       <Input
         onChange={onTextChange}
-        value={props.formPanel.text}
+        value={props.text}
         id='textInput'
         placeholder='What to do?' />
     </FormGroup>
