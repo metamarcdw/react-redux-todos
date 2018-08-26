@@ -24,6 +24,7 @@ export default function(state=initialState, action) {
 
     case LOGIN_USER_FULFILLED:
       return {
+        ...state,
         loading: false,
         loggedIn: true,
         token: action.payload.data.token
@@ -31,7 +32,8 @@ export default function(state=initialState, action) {
 
     case REGISTER_USER_REJECTED:
     case LOGIN_USER_REJECTED:
-      const { data } = action.payload.response || null;
+      const response = action.payload.response || null;
+      const data = response.data || null;
       const msg = (data && data.message) ? data.message : 'Unknown Error.';
       return {
         ...state,

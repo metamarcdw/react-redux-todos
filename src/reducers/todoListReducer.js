@@ -23,7 +23,8 @@ export default function(state=initialState, action) {
     case ADD_NEW_TODO_REJECTED:
     case COMPLETE_TODO_REJECTED:
     case DELETE_TODO_REJECTED:
-      const { data } = action.payload.response || null;
+      const response = action.payload.response || null;
+      const data = response.data || null;
       const msg = (data && data.message) ? data.message : 'Unknown Error.';
       return {
         ...state,
@@ -37,7 +38,8 @@ export default function(state=initialState, action) {
         todos: []
       };
 
-      const { _data } = action.payload.response || null;
+      const _response = action.payload.response || null;
+      const _data = _response.data || null;
       mutation.error = (_data && _data.message) ? _data.message : 'Unknown Error.';
       return {...state, ...mutation}
 
