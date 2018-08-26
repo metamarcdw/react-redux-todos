@@ -17,16 +17,14 @@ export class App extends Component {
     </div>
   );
 
-  onSubmit = e => {
-    e.preventDefault();
-  }
-
   renderTodoPanel = () => (
     <div>
       <TodoListContainer />
       <Form
         className='padding'
-        onSubmit={this.onSubmit}
+        onSubmit={e => {
+          e.preventDefault();
+        }}
       >
         <FormPanelContainer />
         <ButtonPanelContainer />
