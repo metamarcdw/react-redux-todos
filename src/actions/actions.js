@@ -43,19 +43,14 @@ export const addNewTodo = (text, token) => {
   };
 };
 
-export const registerUser = (name, password) => {
-  const newUser = {
-    name,
-    password
-  };
-  return dispatch => {
-    axios.post("/user", newUser)
-      .then(() => dispatch(loginUser(name, password)))
-      .catch(err => dispatch({
-        type: REGISTER_USER_REJECTED,
-        payload: err
-      }));
-  };
+export const registerUser = (name, password) => dispatch => {
+  const newUser = { name, password };
+  axios.post("/user", newUser)
+    .then(() => dispatch(loginUser(name, password)))
+    .catch(err => dispatch({
+      type: REGISTER_USER_REJECTED,
+      payload: err
+    }));
 };
 
 export const loginUser = (username, password) => {
