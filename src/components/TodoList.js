@@ -22,13 +22,13 @@ export class TodoList extends Component {
     fetchAllTodos(token);
   }
 
-  onClickComplete = ({ id, complete }) => () => {
+  onClickComplete = (id, complete) => () => {
     const { token, completeTodo } = this.props;
     if (!complete)
       completeTodo(id, token);
   }
 
-  onClickDelete = ({ id, complete }) => () => {
+  onClickDelete = (id, complete) => () => {
     const { token, deleteTodo } = this.props;
     if (complete || window.confirm('Delete incomplete Todo?'))
       deleteTodo(id, token);
@@ -53,31 +53,28 @@ export class TodoList extends Component {
     </div>
   );
 
-  renderListItem = todo => {
-    const { id, text, complete } = todo;
-    return (
-      <ListGroupItem
-        className='d-flex justify-content-center align-items-center'
-        key={id}
-      >
-        {complete ? this.renderCheckmark() : null}
-        <div className='d-flex flex-grow-1 font-lg'>
-          {text}
-        </div>
-        <Button
-          className='fixedHeight margin'
-          color='primary'
-          onClick={this.onClickComplete(todo)}
-          disabled={complete}
-        >Complete</Button>
-        <Button
-          className='fixedHeight'
-          color='danger'
-          onClick={this.onClickDelete(todo)}
-        >Delete</Button>
-      </ListGroupItem>
-    );
-  }
+  renderListItem = ({ id, text, complete }) => (
+    <ListGroupItem
+      className='d-flex justify-content-center align-items-center'
+      key={id}
+    >
+      {complete ? this.renderCheckmark() : null}
+      <div className='d-flex flex-grow-1 font-lg'>
+        {text}
+      </div>
+      <Button
+        className='fixedHeight margin'
+        color='primary'
+        onClick={this.onClickComplete(id, complete)}
+        disabled={complete}
+      >Complete</Button>
+      <Button
+        className='fixedHeight'
+        color='danger'
+        onClick={this.onClickDelete(id, complete)}
+      >Delete</Button>
+    </ListGroupItem>
+  );
 
   render() {
     const { todos, loading, error } = this.props;
