@@ -22,23 +22,19 @@ export class TodoList extends Component {
     fetchAllTodos(token);
   }
 
-  onClickComplete = todo => {
+  onClickComplete = todo => () => {
     const { token, completeTodo } = this.props;
-    return () => {
-      if (!todo.complete)
-        completeTodo(todo.id, token);
-    };
+    if (!todo.complete)
+      completeTodo(todo.id, token);
   }
 
-  onClickDelete = todo => {
+  onClickDelete = todo => () => {
     const { token, deleteTodo } = this.props;
-    return () => {
-      let shouldDelete = true;
-      if (!todo.complete && !window.confirm('Delete incomplete Todo?'))
-        shouldDelete = false;
-      if (shouldDelete)
-        deleteTodo(todo.id, token);
-    };
+    let shouldDelete = true;
+    if (!todo.complete && !window.confirm('Delete incomplete Todo?'))
+      shouldDelete = false;
+    if (shouldDelete)
+      deleteTodo(todo.id, token);
   }
 
   renderSpinner = () => (
