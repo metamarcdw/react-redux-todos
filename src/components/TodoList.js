@@ -22,16 +22,16 @@ export class TodoList extends Component {
     fetchAllTodos(token);
   }
 
-  onClickComplete = todo => () => {
+  onClickComplete = ({ id, complete }) => () => {
     const { token, completeTodo } = this.props;
-    if (!todo.complete)
-      completeTodo(todo.id, token);
+    if (!complete)
+      completeTodo(id, token);
   }
 
-  onClickDelete = todo => () => {
+  onClickDelete = ({ id, complete }) => () => {
     const { token, deleteTodo } = this.props;
-    if (todo.complete || window.confirm('Delete incomplete Todo?'))
-      deleteTodo(todo.id, token);
+    if (complete || window.confirm('Delete incomplete Todo?'))
+      deleteTodo(id, token);
   }
 
   renderSpinner = () => (
@@ -53,20 +53,20 @@ export class TodoList extends Component {
     </div>
   );
 
-  renderListItem = todo => (
+  renderListItem = ({ id, text, complete }) => (
     <ListGroupItem
       className='d-flex justify-content-center align-items-center'
-      key={todo.id}
+      key={id}
     >
       {todo.complete ? this.renderCheckmark() : null}
       <div className='d-flex flex-grow-1 font-lg'>
-        {todo.text}
+        {text}
       </div>
       <Button
         className='fixedHeight margin'
         color='primary'
         onClick={this.onClickComplete(todo)}
-        disabled={todo.complete}
+        disabled={complete}
       >Complete</Button>
       <Button
         className='fixedHeight'
