@@ -1,10 +1,10 @@
 .padding {
-  padding: 25px;
+  padding: 2.5rem;
 }
 
 .margin {
-  margin-left: 5px;
-  margin-right: 25px;
+  margin-left: .5rem;
+  margin-right: 2.5rem;
 }
 
 .width-80 {
@@ -12,7 +12,7 @@
 }
 
 .font-lg {
-  font-size: 1.3em;
+  font-size: 1.3rem;
 }
 
 .redText {
@@ -24,5 +24,5 @@
 }
 
 .fixedHeight {
-  height: 40px
+  height: 2.5rem
 }
