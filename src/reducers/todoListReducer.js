@@ -41,6 +41,9 @@ export default function(state=initialState, action) {
       const _response = action.payload.response || null;
       const _data = _response.data || null;
       mutation.error = (_data && _data.message) ? _data.message : 'Unknown Error.';
+      if (mutation.error.includes('No todos found.'))
+        mutation.error = null;
+
       return {...state, ...mutation}
 
     case FETCH_ALL_TODOS_FULFILLED:
