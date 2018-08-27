@@ -53,28 +53,31 @@ export class TodoList extends Component {
     </div>
   );
 
-  renderListItem = ({ id, text, complete }) => (
-    <ListGroupItem
-      className='d-flex justify-content-center align-items-center'
-      key={id}
-    >
-      {todo.complete ? this.renderCheckmark() : null}
-      <div className='d-flex flex-grow-1 font-lg'>
-        {text}
-      </div>
-      <Button
-        className='fixedHeight margin'
-        color='primary'
-        onClick={this.onClickComplete(todo)}
-        disabled={complete}
-      >Complete</Button>
-      <Button
-        className='fixedHeight'
-        color='danger'
-        onClick={this.onClickDelete(todo)}
-      >Delete</Button>
-    </ListGroupItem>
-  );
+  renderListItem = todo => {
+    const { id, text, complete } = todo;
+    return (
+      <ListGroupItem
+        className='d-flex justify-content-center align-items-center'
+        key={id}
+      >
+        {complete ? this.renderCheckmark() : null}
+        <div className='d-flex flex-grow-1 font-lg'>
+          {text}
+        </div>
+        <Button
+          className='fixedHeight margin'
+          color='primary'
+          onClick={this.onClickComplete(todo)}
+          disabled={complete}
+        >Complete</Button>
+        <Button
+          className='fixedHeight'
+          color='danger'
+          onClick={this.onClickDelete(todo)}
+        >Delete</Button>
+      </ListGroupItem>
+    );
+  }
 
   render() {
     const { todos, loading, error } = this.props;
