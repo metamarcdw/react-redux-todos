@@ -35,7 +35,7 @@ export class TodoList extends Component {
   }
 
   renderSpinner = () => (
-    <div className='flexCenter'>
+    <div className='d-flex justify-content-center align-items-center'>
       <RingLoader
         color='#999'
         size={42}
@@ -45,7 +45,7 @@ export class TodoList extends Component {
   );
 
   renderCheckmark = () => (
-    <div className='flexColumn flexCenter margin'>
+    <div className='margin'>
       <FontAwesomeIcon
         name='check-circle'
         size='2x'
@@ -55,11 +55,11 @@ export class TodoList extends Component {
 
   renderListItem = todo => (
     <ListGroupItem
-      className='d-flex flexCenter'
+      className='d-flex justify-content-center align-items-center'
       key={todo.id}
     >
       {todo.complete ? this.renderCheckmark() : null}
-      <div className='listItem'>
+      <div className='d-flex flex-grow-1 font-lg'>
         {todo.text}
       </div>
       <Button

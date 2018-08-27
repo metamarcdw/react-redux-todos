@@ -7,26 +7,11 @@
   margin-right: 25px;
 }
 
-.flexColumn {
-  display: flex;
-  flex-direction: column;
-}
-
-.flexCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flexContainer {
-  display: flex;
-  justify-content: space-around;
+.width-80 {
   width: 80%;
 }
 
-.listItem {
-  display: flex;
-  flex-grow: 1;
+.font-lg {
   font-size: 1.3em;
 }
 

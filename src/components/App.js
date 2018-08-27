@@ -50,8 +50,8 @@ export class App extends Component {
           xs='12'
         >
           <Jumbotron>
-            <div className='flexColumn'>
-              <div className='flexCenter padding'>
+            <div className='d-flex flex-column'>
+              <div className='d-flex justify-content-center align-items-center padding'>
                 <h2>My Todos</h2>
               </div>
               {loggedIn ? this.renderTodoPanel() : this.renderLoginPanel()}
