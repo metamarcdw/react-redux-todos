@@ -30,10 +30,7 @@ export class TodoList extends Component {
 
   onClickDelete = todo => () => {
     const { token, deleteTodo } = this.props;
-    let shouldDelete = true;
-    if (!todo.complete && !window.confirm('Delete incomplete Todo?'))
-      shouldDelete = false;
-    if (shouldDelete)
+    if (todo.complete || window.confirm('Delete incomplete Todo?'))
       deleteTodo(todo.id, token);
   }
 
