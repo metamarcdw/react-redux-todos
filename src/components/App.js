@@ -17,27 +17,31 @@ export class App extends Component {
     error: PropTypes.string
   };
 
-  renderLoginPanel = () => (
-    <div>
-      <h5>Please Login:</h5>
-      <LoginFormContainer />
-    </div>
-  );
+  renderLoginPanel() {
+    return (
+      <div>
+        <h5>Please Login:</h5>
+        <LoginFormContainer />
+      </div>
+    );
+  }
 
-  renderTodoPanel = () => (
-    <div>
-      <TodoListContainer />
-      <Form
-        className='padding'
-        onSubmit={e => {
-          e.preventDefault();
-        }}
-      >
-        <FormPanelContainer />
-        <ButtonPanelContainer />
-      </Form>
-    </div>
-  );
+  renderTodoPanel() {
+    return (
+      <div>
+        <TodoListContainer />
+        <Form
+          className='padding'
+          onSubmit={e => {
+            e.preventDefault();
+          }}
+        >
+          <FormPanelContainer />
+          <ButtonPanelContainer />
+        </Form>
+      </div>
+    );
+  }
 
   render() {
     const { loggedIn, error } = this.props;

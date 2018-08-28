@@ -34,24 +34,28 @@ export class TodoList extends Component {
       deleteTodo(id, token);
   }
 
-  renderSpinner = () => (
-    <div className='d-flex justify-content-center align-items-center'>
-      <RingLoader
-        color='#999'
-        size={42}
-        loading={true} />
-      Loading..
-    </div>
-  );
+  renderSpinner() {
+    return (
+      <div className='d-flex justify-content-center align-items-center'>
+        <RingLoader
+          color='#999'
+          size={42}
+          loading={true} />
+        Loading..
+      </div>
+    );
+  }
 
-  renderCheckmark = () => (
-    <div className='margin'>
-      <FontAwesomeIcon
-        name='check-circle'
-        size='2x'
-        className='greenText' />
-    </div>
-  );
+  renderCheckmark() {
+    return (
+      <div className='margin'>
+        <FontAwesomeIcon
+          name='check-circle'
+          size='2x'
+          className='greenText' />
+      </div>
+    );
+  }
 
   renderListItem = ({ id, text, complete }) => (
     <ListGroupItem
