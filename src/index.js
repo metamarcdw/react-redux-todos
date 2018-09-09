@@ -15,6 +15,8 @@ export const app = (
 
 try {
   ReactDOM.render(app, document.getElementById("root"));
-} catch (error) { }
+} catch (error) {
+  console.log(error);
+}
 
 registerServiceWorker();
