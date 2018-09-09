@@ -64,14 +64,12 @@ export const formPanelUpdate = text => ({
   payload: { text }
 });
 
-export const loginFormUpdate = (fieldName, fieldText) => {
-  const action = {
-    type: LOGIN_FORM_UPDATE,
-    payload: {}
-  };
-  action.payload[fieldName] = fieldText;
-  return action;
-};
+export const loginFormUpdate = (fieldName, fieldText) => ({
+  type: LOGIN_FORM_UPDATE,
+  payload: {
+    [fieldName]: fieldText
+  }
+});
 
 export const clearLoginForm = () => ({
   type: CLEAR_LOGIN_FORM
