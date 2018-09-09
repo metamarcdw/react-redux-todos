@@ -20,14 +20,14 @@ export const fetchAllTodos = token => ({
   payload: axios.get("/todo", bearer(token))
 });
 
-export const completeTodo = (id_, token) => ({
+export const completeTodo = (id, token) => ({
   type: COMPLETE_TODO,
-  payload: axios.put(`/todo/${id_}`, null, bearer(token))
+  payload: axios.put(`/todo/${id}`, null, bearer(token))
 });
 
-export const deleteTodo = (id_, token) => ({
+export const deleteTodo = (id, token) => ({
   type: DELETE_TODO,
-  payload: axios.delete(`/todo/${id_}`, bearer(token))
+  payload: axios.delete(`/todo/${id}`, bearer(token))
 });
 
 export const addNewTodo = (text, token) => ({
