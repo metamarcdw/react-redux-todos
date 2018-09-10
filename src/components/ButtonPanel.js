@@ -14,7 +14,12 @@ export class ButtonPanel extends Component {
   };
 
   onClickAdd = () => {
-    const { text, token, addNewTodo, formPanelUpdate } = this.props;
+    const {
+      text, token,
+      addNewTodo,
+      formPanelUpdate
+    } = this.props;
+
     if (text) {
       addNewTodo(text, token);
       formPanelUpdate('');
