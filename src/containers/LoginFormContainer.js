@@ -4,7 +4,7 @@ import {
   clearLoginForm,
   loginUser,
   registerUser
-} from '../actions/actions';
+} from '../actions';
 import { LoginForm } from '../components';
 
 const mapStateToProps = state => {

@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
-import { addNewTodo, formPanelUpdate, logoutUser } from '../actions/actions';
+import {
+  addNewTodo,
+  formPanelUpdate,
+  logoutUser
+} from '../actions';
 import { ButtonPanel } from '../components';
 
 const mapStateToProps = state => {

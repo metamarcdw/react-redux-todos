@@ -3,7 +3,7 @@ import {
   fetchAllTodos,
   completeTodo,
   deleteTodo
-} from '../actions/actions';
+} from '../actions';
 import { TodoList } from '../components';
 
 const mapStateToProps = state => {

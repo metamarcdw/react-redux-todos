@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { formPanelUpdate } from '../actions/actions';
+import { formPanelUpdate } from '../actions';
 import { FormPanel } from '../components';
 
 const mapStateToProps = state => {
