@@ -17,7 +17,8 @@ export default function(state=initialState, action) {
       return {
         ...state,
         loading: true,
-        todos: []
+        todos: [],
+        error: null
       }
 
     case ADD_NEW_TODO_REJECTED:
