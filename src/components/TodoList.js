@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import FontAwesomeIcon from 'react-fontawesome';
@@ -72,13 +72,13 @@ export class TodoList extends Component {
   render() {
     const { todos, loading, error } = this.props;
     return (
-      <div>
+      <Fragment>
         <ListGroup>
           {todos.map(this.renderListItem)}
         </ListGroup>
         <span className='text-danger'>{error}</span>
         <Spinner loading={loading} />
-      </div>
+      </Fragment>
     );
   }
 
