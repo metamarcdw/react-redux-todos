@@ -1,3 +1,7 @@
 .fixedHeight {
   height: 2.5rem
 }
+
+.no-shadow:invalid {
+  box-shadow: none;
+}

@@ -33,14 +33,24 @@ export const addNewTodo = (text, token) => ({
   payload: axios.post("/todo", { text }, _bearer(token))
 });
 
-export const registerUser = (name, password) => dispatch => {
-  const newUser = { name, password };
-  axios.post("/user", newUser)
-    .then(() => dispatch(loginUser(name, password)))
-    .catch(err => dispatch({
+export const registerUser = (name, password) => {
+  if (!name || !password)
+    return {
       type: REGISTER_USER_REJECTED,
-      payload: err
-    }));
+      payload: {response: {data: {
+        message: "Please fill out the form."
+      }}}
+    }
+
+  return dispatch => {
+    const newUser = { name, password };
+    axios.post("/user", newUser)
+      .then(() => dispatch(loginUser(name, password)))
+      .catch(err => dispatch({
+        type: REGISTER_USER_REJECTED,
+        payload: err
+      }));
+  }
 };
 
 export const loginUser = (username, password) => ({

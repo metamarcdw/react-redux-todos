@@ -19,20 +19,24 @@ export class LoginForm extends Component {
   }
 
   onSubmitLogin = e => {
-    const { usernameText, passwordText, clearLoginForm, loginUser } = this.props;
-    if (usernameText && passwordText) {
-      clearLoginForm();
-      loginUser(usernameText, passwordText);
-    }
+    const {
+      usernameText, passwordText,
+      clearLoginForm, loginUser
+    } = this.props;
+
+    loginUser(usernameText, passwordText);
+    clearLoginForm();
     e.preventDefault();
   }
 
   onClickRegister = () => {
-    const { usernameText, passwordText, clearLoginForm, registerUser } = this.props;
-    if (usernameText && passwordText) {
-      clearLoginForm();
-      registerUser(usernameText, passwordText);
-    }
+    const {
+      usernameText, passwordText,
+      clearLoginForm, registerUser
+    } = this.props;
+
+    registerUser(usernameText, passwordText);
+    clearLoginForm();
   }
 
   render() {
@@ -42,18 +46,22 @@ export class LoginForm extends Component {
         <FormGroup>
           <Label for='usernameText'>Enter your username</Label>
           <Input
+            className='no-shadow'
             onChange={this.onInputChange}
             value={usernameText}
             placeholder='Your Username'
-            id='usernameText' />
+            id='usernameText'
+            required={true} />
         </FormGroup>
         <FormGroup>
           <Label for='passwordText'>Enter your password</Label>
           <Input
+            className='no-shadow'
             onChange={this.onInputChange}
             value={passwordText}
             type='password'
-            id='passwordText' />
+            id='passwordText'
+            required={true} />
         </FormGroup>
         <Button
           className='fixedHeight ml-2 mr-4'
