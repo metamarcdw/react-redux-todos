@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { RingLoader } from 'react-spinners';
 import FontAwesomeIcon from 'react-fontawesome';
+
+import { Spinner } from '../components';
 import '../style.css';
 
 export class TodoList extends Component {
@@ -32,18 +33,6 @@ export class TodoList extends Component {
     const { token, deleteTodo } = this.props;
     if (complete || window.confirm('Delete incomplete Todo?'))
       deleteTodo(id, token);
-  }
-
-  renderSpinner() {
-    return (
-      <div className='d-flex justify-content-center align-items-center'>
-        <RingLoader
-          color='#999'
-          size={42}
-          loading={true} />
-        Loading..
-      </div>
-    );
   }
 
   renderCheckmark() {
@@ -88,7 +77,7 @@ export class TodoList extends Component {
           {todos.map(this.renderListItem)}
         </ListGroup>
         <span className='text-danger'>{error}</span>
-        {loading ? this.renderSpinner() : null}
+        <Spinner loading={loading} />
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Jumbotron, Form } from 'reactstrap';
 
+import { Spinner } from '../components';
 import {
   LoginFormContainer,
   FormPanelContainer,
@@ -44,7 +45,7 @@ export class App extends Component {
   }
 
   render() {
-    const { loggedIn, error } = this.props;
+    const { loading, loggedIn, error } = this.props;
     return (
       < Row >
         <Col
@@ -59,6 +60,7 @@ export class App extends Component {
                 <h2>My Todos</h2>
               </div>
               {loggedIn ? this.renderTodoPanel() : this.renderLoginPanel()}
+              <Spinner loading={loading} />
               <span className='text-danger'>{error}</span>
             </div>
           </Jumbotron>
