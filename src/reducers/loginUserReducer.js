@@ -34,7 +34,7 @@ export default function(state=initialState, action) {
     case LOGIN_USER_REJECTED:
       const response = action.payload.response || null;
       const data = response.data || null;
-      const msg = (data && data.message) ? data.message : 'Unknown Error.';
+      const msg = (data && data.message) ? data.message : 'Login Error. Please try again.';
       return {
         ...state,
         loading: false,
