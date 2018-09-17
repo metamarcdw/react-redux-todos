@@ -14,6 +14,7 @@ import '../style.css';
 export class App extends Component {
 
   static propTypes = {
+    loading: PropTypes.bool.isRequired,
     loggedIn: PropTypes.bool.isRequired,
     error: PropTypes.string
   };
