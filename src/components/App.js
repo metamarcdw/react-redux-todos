@@ -31,7 +31,7 @@ export class App extends Component {
       <div>
         <TodoListContainer />
         <Form
-          className='padding'
+          className='p-4'
           onSubmit={e => {
             e.preventDefault();
           }}
@@ -55,11 +55,11 @@ export class App extends Component {
         >
           <Jumbotron>
             <div className='d-flex flex-column'>
-              <div className='d-flex justify-content-center align-items-center padding'>
+              <div className='d-flex justify-content-center align-items-center p-4'>
                 <h2>My Todos</h2>
               </div>
               {loggedIn ? this.renderTodoPanel() : this.renderLoginPanel()}
-              <span className='redText'>{error}</span>
+              <span className='text-danger'>{error}</span>
             </div>
           </Jumbotron>
         </Col>

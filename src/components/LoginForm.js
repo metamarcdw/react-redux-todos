@@ -38,7 +38,7 @@ export class LoginForm extends Component {
   render() {
     const { usernameText, passwordText } = this.props;
     return (
-      <Form className='padding' onSubmit={this.onSubmitLogin}>
+      <Form className='p-4' onSubmit={this.onSubmitLogin}>
         <FormGroup>
           <Label for='usernameText'>Enter your username</Label>
           <Input
@@ -56,7 +56,7 @@ export class LoginForm extends Component {
             id='passwordText' />
         </FormGroup>
         <Button
-          className='fixedHeight margin'
+          className='fixedHeight ml-2 mr-4'
           type='submit'
         >Login</Button>
         <Button

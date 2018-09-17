@@ -41,7 +41,7 @@ export class ButtonPanel extends Component {
   render() {
     return (
       <div className='d-flex justify-content-center align-items-center'>
-        <div className='d-flex justify-content-around width-80'>
+        <div className='d-flex justify-content-around w-75'>
           <Button
             className='fixedHeight'
             onClick={this.onClickAdd}

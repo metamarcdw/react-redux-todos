@@ -48,11 +48,11 @@ export class TodoList extends Component {
 
   renderCheckmark() {
     return (
-      <div className='margin'>
+      <div className='ml-2 mr-4'>
         <FontAwesomeIcon
           name='check-circle'
           size='2x'
-          className='greenText' />
+          className='text-success' />
       </div>
     );
   }
@@ -63,11 +63,11 @@ export class TodoList extends Component {
       key={id}
     >
       {complete ? this.renderCheckmark() : null}
-      <div className='d-flex flex-grow-1 font-lg'>
-        {text}
+      <div className='d-flex flex-grow-1'>
+        <h5>{text}</h5>
       </div>
       <Button
-        className='fixedHeight margin'
+        className='fixedHeight ml-2 mr-4'
         color='primary'
         onClick={this.onClickComplete(id, complete)}
         disabled={complete}
@@ -87,7 +87,7 @@ export class TodoList extends Component {
         <ListGroup>
           {todos.map(this.renderListItem)}
         </ListGroup>
-        <span className='redText'>{error}</span>
+        <span className='text-danger'>{error}</span>
         {loading ? this.renderSpinner() : null}
       </div>
     );
