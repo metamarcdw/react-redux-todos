@@ -9,30 +9,28 @@ const axios = http.create({
   baseURL: "https://metamarcdw.pythonanywhere.com"
 });
 
-export const bearer = token => ({
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
+const _bearer = token => ({
+  headers: { Authorization: `Bearer ${token}` }
 });
 
 export const fetchAllTodos = token => ({
   type: FETCH_ALL_TODOS,
-  payload: axios.get("/todo", bearer(token))
+  payload: axios.get("/todo", _bearer(token))
 });
 
 export const completeTodo = (id, token) => ({
   type: COMPLETE_TODO,
-  payload: axios.put(`/todo/${id}`, null, bearer(token))
+  payload: axios.put(`/todo/${id}`, null, _bearer(token))
 });
 
 export const deleteTodo = (id, token) => ({
   type: DELETE_TODO,
-  payload: axios.delete(`/todo/${id}`, bearer(token))
+  payload: axios.delete(`/todo/${id}`, _bearer(token))
 });
 
 export const addNewTodo = (text, token) => ({
   type: ADD_NEW_TODO,
-  payload: axios.post("/todo", { text }, bearer(token))
+  payload: axios.post("/todo", { text }, _bearer(token))
 });
 
 export const registerUser = (name, password) => dispatch => {
