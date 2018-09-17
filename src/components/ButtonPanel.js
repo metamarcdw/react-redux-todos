@@ -14,16 +14,9 @@ export class ButtonPanel extends Component {
   };
 
   onClickAdd = () => {
-    const {
-      text, token,
-      addNewTodo,
-      formPanelUpdate
-    } = this.props;
-
-    if (text) {
-      addNewTodo(text, token);
-      formPanelUpdate('');
-    }
+    const { text, token, addNewTodo } = this.props;
+    addNewTodo(text, token);
+    this.onClickClear();
   }
 
   onClickClear = () => {
@@ -34,8 +27,8 @@ export class ButtonPanel extends Component {
   }
 
   onClickLogout = () => {
-    this.onClickClear();
     this.props.logoutUser();
+    this.onClickClear();
   }
 
   render() {

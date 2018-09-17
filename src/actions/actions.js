@@ -1,6 +1,6 @@
 import http from 'axios';
 import {
-  FETCH_ALL_TODOS, COMPLETE_TODO, DELETE_TODO, ADD_NEW_TODO,
+  FETCH_ALL_TODOS, COMPLETE_TODO, DELETE_TODO, ADD_NEW_TODO, ADD_NEW_TODO_REJECTED,
   REGISTER_USER_REJECTED, LOGIN_USER, LOGOUT_USER,
   FORM_PANEL_UPDATE, LOGIN_FORM_UPDATE, CLEAR_LOGIN_FORM
 } from './types';
@@ -28,10 +28,20 @@ export const deleteTodo = (id, token) => ({
   payload: axios.delete(`/todo/${id}`, _bearer(token))
 });
 
-export const addNewTodo = (text, token) => ({
-  type: ADD_NEW_TODO,
-  payload: axios.post("/todo", { text }, _bearer(token))
-});
+export const addNewTodo = (text, token) => {
+  if (!text)
+    return {
+      type: ADD_NEW_TODO_REJECTED,
+      payload: {response: {data: {
+        message: "Please fill out the form."
+      }}}
+    };
+
+  return {
+    type: ADD_NEW_TODO,
+    payload: axios.post("/todo", { text }, _bearer(token))
+  };
+}
 
 export const registerUser = (name, password) => {
   if (!name || !password)
@@ -40,7 +50,7 @@ export const registerUser = (name, password) => {
       payload: {response: {data: {
         message: "Please fill out the form."
       }}}
-    }
+    };
 
   return dispatch => {
     const newUser = { name, password };
@@ -50,7 +60,7 @@ export const registerUser = (name, password) => {
         type: REGISTER_USER_REJECTED,
         payload: err
       }));
-  }
+  };
 };
 
 export const loginUser = (username, password) => ({
