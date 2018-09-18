@@ -1,8 +1,12 @@
-import Joi from 'joi';
-import { users } from './db';
-import { new_user_schema } from './schemas';
-
 import express from 'express';
+import serialize from 'express-serializer';
+import Joi from 'joi';
+import uuid from 'uuid/v4';
+
+import { users } from './db';
+import { userSerializer } from './serializers';
+import { newUserSchema } from './schemas';
+
 const app = express();
 app.use(express.json());
 
@@ -21,22 +25,43 @@ app.get('/user', (req, res) => {
   if (users.length < 1) return res.status(404).send({
     msg: 'No users found.'
   });
-  res.send(users);
+
+  serialize(req, users, userSerializer)
+    .then(json => {
+      res.send(json);
+    }).catch(err => console.log(err));
 });
 
 app.get('/user/:id', (req, res) => {
   const { id } = req.params;
   const user = findItem(id, users, res);
-  if (user) res.send(user);
+
+  if (user) serialize(req, user, userSerializer)
+    .then(json => {
+      res.send(json);
+    }).catch(err => console.log(err));
 });
 
 app.post('/user', (req, res) => {
-  const { value, error } = Joi.validate(req.body, new_user_schema);
+  const { value, error } = Joi.validate(req.body, newUserSchema);
   if (error) return res.status(400).send({
     msg: error.details[0].message
-  })
-  
-  res.send({ new_user: value })
+  });
+
+  const { name, password } = value;
+  const newUser = {
+    id: users.length + 1,
+    public_id: uuid(),
+    name,
+    password_hash: password,
+    admin: false
+  };
+  users.push(newUser);
+
+  serialize(req, value, userSerializer)
+    .then(json => {
+      res.send({ new_user: newUser });
+    }).catch(err => console.log(err));
 });
 
 const PORT = process.env.PORT || 3000;
