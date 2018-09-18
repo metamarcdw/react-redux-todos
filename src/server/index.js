@@ -10,15 +10,18 @@ import { newUserSchema } from './schemas';
 const app = express();
 app.use(express.json());
 
-function findItem(id, items, res) {
-  if (!id || id < 1) res.status(400).send({
-    msg: 'Bad ID given'
+function findItem(id, items, res, attr = 'id') {
+  if (!id) res.status(400).send({
+    msg: 'No ID given'
   });
-  const item = items.find(i => i.id === parseInt(id));
+
+  const index = items.map(i => i[attr]).indexOf(id);
+  const item = items[index];
+
   if (!item) res.status(404).send({
     msg: 'ID not found'
   });
-  return item;
+  return { item, index };
 }
 
 app.get('/user', (req, res) => {
@@ -34,7 +37,7 @@ app.get('/user', (req, res) => {
 
 app.get('/user/:id', (req, res) => {
   const { id } = req.params;
-  const user = findItem(id, users, res);
+  const { item: user } = findItem(id, users, res, 'public_id');
 
   if (user) serialize(req, user, userSerializer)
     .then(json => {
@@ -58,9 +61,31 @@ app.post('/user', (req, res) => {
   };
   users.push(newUser);
 
-  serialize(req, value, userSerializer)
+  serialize(req, newUser, userSerializer)
     .then(json => {
-      res.send({ new_user: newUser });
+      res.send({ new_user: json });
+    }).catch(err => console.log(err));
+});
+
+app.put('/user/:id', (req, res) => {
+  const { id } = req.params;
+  const { item: user } = findItem(id, users, res, 'public_id');
+  user.admin = true;
+
+  if (user) serialize(req, user, userSerializer)
+    .then(json => {
+      res.send({ promoted_user: json });
+    }).catch(err => console.log(err));
+});
+
+app.delete('/user/:id', (req, res) => {
+  const { id } = req.params;
+  const { item: user, index } = findItem(id, users, res, 'public_id');
+  users.splice(index, 1);
+
+  if (user) serialize(req, user, userSerializer)
+    .then(json => {
+      res.send({ deleted_user: json });
     }).catch(err => console.log(err));
 });
 
