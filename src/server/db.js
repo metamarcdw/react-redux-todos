@@ -1,7 +1,9 @@
+import uuid from 'uuid/v4';
+
 export const users = [
-  { id: 1, public_id: 'uuid1', name: 'user1', password_hash: 'asdfg', admin: true },
-  { id: 2, public_id: 'uuid2', name: 'user2', password_hash: 'qwert', admin: false },
-  { id: 3, public_id: 'uuid3', name: 'user3', password_hash: 'gfdsa', admin: false }
+  { id: 1, public_id: uuid(), name: 'user1', password_hash: 'asdfg', admin: true },
+  { id: 2, public_id: uuid(), name: 'user2', password_hash: 'qwert', admin: false },
+  { id: 3, public_id: uuid(), name: 'user3', password_hash: 'gfdsa', admin: false }
 ];
 
 export const todos = [
