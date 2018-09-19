@@ -3,8 +3,13 @@ import morgan from 'morgan';
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 
+import passport from 'passport';
+import passportJwt from 'passport-jwt';
+
 import getConfig from './config';
-import { userRoutes, todoRoutes } from './routes';
+import { users } from './db';
+import { findItem } from './helpers';
+import { userRoutes, todoRoutes, loginRoute } from './routes';
 
 const app = express();
 const config = getConfig();
@@ -18,7 +23,7 @@ const gmailer = nodemailer.createTransport({
 });
 
 const errorLog = morgan('common', {
-  skip: (req, res) => res.statusCode < 500,
+  skip: (req, res) => true, // res.statusCode < 500,
   stream: {
     write: str => {
       const mailOptions = {
@@ -47,11 +52,26 @@ const corsOptions = {
   credentials: true
 };
 
+const jwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: config.JWT_SECRET_KEY
+};
+const strategy = new jwtStrategy(jwtOptions, (payload, next) => {
+  const user = findItem(payload.id, users, 'public_id');
+  next(null, user);
+});
+
 app.use(express.json());
 app.use(errorLog);
 
 app.use(userRoutes);
 app.use(todoRoutes);
+app.use(loginRoute);
+
+passport.use(strategy);
+app.use(passport.initialize());
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))

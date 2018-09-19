@@ -22,8 +22,10 @@ router.get('/todo', (req, res) => {
 
 router.get('/todo/:id', (req, res) => {
   const { id } = req.params;
-  const { item: todo } = findItem(parseInt(id), todos, res);
-  if (!todo) return;
+  const { item: todo } = findItem(parseInt(id), todos);
+  if (!todo) return res.status(404).send({
+    msg: 'Todo not found'
+  });
 
   serialize(req, todo, todoSerializer)
     .then(json => {
@@ -54,8 +56,10 @@ router.post('/todo', (req, res) => {
 
 router.put('/todo/:id', (req, res) => {
   const { id } = req.params;
-  const { item: todo } = findItem(parseInt(id), todos, res);
-  if (!todo) return;
+  const { item: todo } = findItem(parseInt(id), todos);
+  if (!todo) return res.status(404).send({
+    msg: 'Todo not found'
+  });
 
   todo.complete = true;
   serialize(req, todo, todoSerializer)
@@ -66,8 +70,10 @@ router.put('/todo/:id', (req, res) => {
 
 router.delete('/todo/:id', (req, res) => {
   const { id } = req.params;
-  const { item: todo, index } = findItem(parseInt(id), todos, res);
-  if (!todo) return;
+  const { item: todo, index } = findItem(parseInt(id), todos);
+  if (!todo) return res.status(404).send({
+    msg: 'Todo not found'
+  });
 
   todos.splice(index, 1);
   serialize(req, todo, todoSerializer)

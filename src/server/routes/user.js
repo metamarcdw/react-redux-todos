@@ -1,12 +1,17 @@
 import express from 'express';
 import serialize from 'express-serializer';
 import Joi from 'joi';
+import passport from 'passport';
 import uuid from 'uuid/v4';
 
 import { users } from '../db';
 import { userSerializer } from '../serializers';
 import { newUserSchema } from '../schemas';
 import { findItem } from '../helpers';
+
+const jwt_required = passport.authenticate('jwt', {
+  session: false
+});
 
 const router = express.Router();
 
@@ -23,9 +28,12 @@ router.get('/user', (req, res) => {
 
 router.get('/user/:id', (req, res) => {
   const { id } = req.params;
-  const { item: user } = findItem(id, users, res, 'public_id');
+  const { item: user } = findItem(id, users, 'public_id');
+  if (!user) return res.status(404).send({
+    msg: 'User not found'
+  });
 
-  if (user) serialize(req, user, userSerializer)
+  serialize(req, user, userSerializer)
     .then(json => {
       res.send(json);
     }).catch(err => console.log(err));
@@ -55,10 +63,13 @@ router.post('/user', (req, res) => {
 
 router.put('/user/:id', (req, res) => {
   const { id } = req.params;
-  const { item: user } = findItem(id, users, res, 'public_id');
-  user.admin = true;
+  const { item: user } = findItem(id, users, 'public_id');
+  if (!user) return res.status(404).send({
+    msg: 'User not found'
+  });
 
-  if (user) serialize(req, user, userSerializer)
+  user.admin = true;
+  serialize(req, user, userSerializer)
     .then(json => {
       res.send({ promoted_user: json });
     }).catch(err => console.log(err));
@@ -66,10 +77,13 @@ router.put('/user/:id', (req, res) => {
 
 router.delete('/user/:id', (req, res) => {
   const { id } = req.params;
-  const { item: user, index } = findItem(id, users, res, 'public_id');
-  users.splice(index, 1);
+  const { item: user, index } = findItem(id, users, 'public_id');
+  if (!user) return res.status(404).send({
+    msg: 'User not found'
+  });
 
-  if (user) serialize(req, user, userSerializer)
+  users.splice(index, 1);
+  serialize(req, user, userSerializer)
     .then(json => {
       res.send({ deleted_user: json });
     }).catch(err => console.log(err));
