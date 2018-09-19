@@ -4,8 +4,7 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 
 import getConfig from './config';
-import userRoutes from './routes/user';
-import todoRoutes from './routes/todo';
+import { userRoutes, todoRoutes } from './routes';
 
 const app = express();
 const config = getConfig();
