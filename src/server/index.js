@@ -30,7 +30,7 @@ const errorLog = morgan('common', {
       };
       gmailer.sendMail(mailOptions, (err, info) => {
         if (err) console.log(err);
-        console.log(info);
+        console.log(`Sent error log to admins:\n${info}`);
       })
     }
   }
