@@ -16,32 +16,32 @@ const jwt_required = passport.authenticate('jwt', {
 const router = express.Router();
 
 router.get('/user', (req, res) => {
-  if (users.length < 1) return res.status(404).send({
+  if (users.length < 1) return res.status(404).json({
     msg: 'No users found.'
   });
 
   serialize(req, users, userSerializer)
     .then(json => {
-      res.send(json);
+      res.json(json);
     }).catch(err => console.log(err));
 });
 
 router.get('/user/:id', (req, res) => {
   const { id } = req.params;
   const { item: user } = findItem(id, users, 'public_id');
-  if (!user) return res.status(404).send({
+  if (!user) return res.status(404).json({
     msg: 'User not found'
   });
 
   serialize(req, user, userSerializer)
     .then(json => {
-      res.send(json);
+      res.json(json);
     }).catch(err => console.log(err));
 });
 
 router.post('/user', (req, res) => {
   const { value, error } = Joi.validate(req.body, newUserSchema);
-  if (error) return res.status(400).send({
+  if (error) return res.status(400).json({
     msg: error.details[0].message
   });
 
@@ -57,35 +57,35 @@ router.post('/user', (req, res) => {
 
   serialize(req, newUser, userSerializer)
     .then(json => {
-      res.send({ new_user: json });
+      res.json({ new_user: json });
     }).catch(err => console.log(err));
 });
 
 router.put('/user/:id', (req, res) => {
   const { id } = req.params;
   const { item: user } = findItem(id, users, 'public_id');
-  if (!user) return res.status(404).send({
+  if (!user) return res.status(404).json({
     msg: 'User not found'
   });
 
   user.admin = true;
   serialize(req, user, userSerializer)
     .then(json => {
-      res.send({ promoted_user: json });
+      res.json({ promoted_user: json });
     }).catch(err => console.log(err));
 });
 
 router.delete('/user/:id', (req, res) => {
   const { id } = req.params;
   const { item: user, index } = findItem(id, users, 'public_id');
-  if (!user) return res.status(404).send({
+  if (!user) return res.status(404).json({
     msg: 'User not found'
   });
 
   users.splice(index, 1);
   serialize(req, user, userSerializer)
     .then(json => {
-      res.send({ deleted_user: json });
+      res.json({ deleted_user: json });
     }).catch(err => console.log(err));
 });
 

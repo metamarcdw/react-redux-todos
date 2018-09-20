@@ -10,32 +10,32 @@ import { findItem } from '../helpers';
 const router = express.Router();
 
 router.get('/todo', (req, res) => {
-  if (todos.length < 1) return res.status(404).send({
+  if (todos.length < 1) return res.status(404).json({
     msg: 'No todos found.'
   });
 
   serialize(req, todos, todoSerializer)
     .then(json => {
-      res.send(json);
+      res.json(json);
     }).catch(err => console.log(err));
 });
 
 router.get('/todo/:id', (req, res) => {
   const { id } = req.params;
   const { item: todo } = findItem(parseInt(id), todos);
-  if (!todo) return res.status(404).send({
+  if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });
 
   serialize(req, todo, todoSerializer)
     .then(json => {
-      res.send(json);
+      res.json(json);
     }).catch(err => console.log(err));
 });
 
 router.post('/todo', (req, res) => {
   const { value, error } = Joi.validate(req.body, newTodoSchema);
-  if (error) return res.status(400).send({
+  if (error) return res.status(400).json({
     msg: error.details[0].message
   });
 
@@ -50,35 +50,35 @@ router.post('/todo', (req, res) => {
 
   serialize(req, newTodo, todoSerializer)
     .then(json => {
-      res.send({ new_todo: json });
+      res.json({ new_todo: json });
     }).catch(err => console.log(err));
 });
 
 router.put('/todo/:id', (req, res) => {
   const { id } = req.params;
   const { item: todo } = findItem(parseInt(id), todos);
-  if (!todo) return res.status(404).send({
+  if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });
 
   todo.complete = true;
   serialize(req, todo, todoSerializer)
     .then(json => {
-      res.send({ completed_todo: json });
+      res.json({ completed_todo: json });
     }).catch(err => console.log(err));
 });
 
 router.delete('/todo/:id', (req, res) => {
   const { id } = req.params;
   const { item: todo, index } = findItem(parseInt(id), todos);
-  if (!todo) return res.status(404).send({
+  if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });
 
   todos.splice(index, 1);
   serialize(req, todo, todoSerializer)
     .then(json => {
-      res.send({ deleted_todo: json });
+      res.json({ deleted_todo: json });
     }).catch(err => console.log(err));
 });
 
