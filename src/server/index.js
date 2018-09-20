@@ -60,11 +60,7 @@ const jwtOptions = {
 };
 const strategy = new jwtStrategy(jwtOptions, (payload, done) => {
   const { item: user } = findItem(payload.id, users, 'public_id');
-  if (user) {
-    return done(null, user);
-  } else {
-    return done(null, false);
-  }
+  return done(null, user || false);
 });
 
 app.use(express.json());

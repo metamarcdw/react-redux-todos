@@ -21,13 +21,8 @@ const auth = basicAuth({
 
 router.get('/login', auth, (req, res) => {
   const { item: user } = findItem(req.auth.user, users, 'name');
-  const payload = {
-    id: user.public_id,
-    admin: user.admin
-  };
-  const token = jwt.sign(payload, config.JWT_SECRET_KEY, {
-    expiresIn: '30m'
-  });
+  const payload = { id: user.public_id };
+  const token = jwt.sign(payload, config.JWT_SECRET_KEY, { expiresIn: '30m' });
   res.json({ token });
 });
 
