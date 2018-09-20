@@ -58,9 +58,13 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.JWT_SECRET_KEY
 };
-const strategy = new jwtStrategy(jwtOptions, (payload, next) => {
-  const user = findItem(payload.id, users, 'public_id');
-  next(null, user);
+const strategy = new jwtStrategy(jwtOptions, (payload, done) => {
+  const { item: user } = findItem(payload.id, users, 'public_id');
+  if (user) {
+    return done(null, user);
+  } else {
+    return done(null, false);
+  }
 });
 
 app.use(express.json());

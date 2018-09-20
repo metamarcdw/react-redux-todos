@@ -1,6 +1,7 @@
 import express from 'express';
 import serialize from 'express-serializer';
 import Joi from 'joi';
+import passport from 'passport';
 
 import { todos } from '../db';
 import { todoSerializer } from '../serializers';
@@ -8,21 +9,23 @@ import { newTodoSchema } from '../schemas';
 import { findItem } from '../helpers';
 
 const router = express.Router();
+const auth = passport.authenticate('jwt', { session: false });
 
-router.get('/todo', (req, res) => {
+router.get('/todo', auth, (req, res) => {
   if (todos.length < 1) return res.status(404).json({
     msg: 'No todos found.'
   });
-
-  serialize(req, todos, todoSerializer)
+  const myTodos = todos.filter(t => t.user_id === req.user.id);
+  serialize(req, myTodos, todoSerializer)
     .then(json => {
       res.json(json);
     }).catch(err => console.log(err));
 });
 
-router.get('/todo/:id', (req, res) => {
+router.get('/todo/:id', auth, (req, res) => {
   const { id } = req.params;
-  const { item: todo } = findItem(parseInt(id), todos);
+  const myTodos = todos.filter(t => t.user_id === req.user.id);
+  const { item: todo } = findItem(parseInt(id), myTodos);
   if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });
@@ -33,7 +36,7 @@ router.get('/todo/:id', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.post('/todo', (req, res) => {
+router.post('/todo', auth, (req, res) => {
   const { value, error } = Joi.validate(req.body, newTodoSchema);
   if (error) return res.status(400).json({
     msg: error.details[0].message
@@ -44,7 +47,7 @@ router.post('/todo', (req, res) => {
     id: todos.length + 1,
     text,
     complete: false,
-    user_id: 1
+    user_id: req.user.id
   };
   todos.push(newTodo);
 
@@ -54,9 +57,10 @@ router.post('/todo', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.put('/todo/:id', (req, res) => {
+router.put('/todo/:id', auth, (req, res) => {
   const { id } = req.params;
-  const { item: todo } = findItem(parseInt(id), todos);
+  const myTodos = todos.filter(t => t.user_id === req.user.id);
+  const { item: todo } = findItem(parseInt(id), myTodos);
   if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });
@@ -68,9 +72,10 @@ router.put('/todo/:id', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.delete('/todo/:id', (req, res) => {
+router.delete('/todo/:id', auth, (req, res) => {
   const { id } = req.params;
-  const { item: todo, index } = findItem(parseInt(id), todos);
+  const myTodos = todos.filter(t => t.user_id === req.user.id);
+  const { item: todo } = findItem(parseInt(id), myTodos);
   if (!todo) return res.status(404).json({
     msg: 'Todo not found'
   });

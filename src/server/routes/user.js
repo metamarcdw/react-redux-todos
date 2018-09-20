@@ -9,13 +9,17 @@ import { userSerializer } from '../serializers';
 import { newUserSchema } from '../schemas';
 import { findItem } from '../helpers';
 
-const jwt_required = passport.authenticate('jwt', {
-  session: false
-});
-
+const auth = passport.authenticate('jwt', { session: false });
 const router = express.Router();
 
-router.get('/user', (req, res) => {
+function requireAdmin(req, res, next) {
+  if (!req.user.admin) res.status(401).json({
+    msg: 'Must be admin'
+  });
+  next();
+}
+
+router.get('/user', auth, requireAdmin, (req, res) => {
   if (users.length < 1) return res.status(404).json({
     msg: 'No users found.'
   });
@@ -26,7 +30,7 @@ router.get('/user', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', auth, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { item: user } = findItem(id, users, 'public_id');
   if (!user) return res.status(404).json({
@@ -61,7 +65,7 @@ router.post('/user', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.put('/user/:id', (req, res) => {
+router.put('/user/:id', auth, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { item: user } = findItem(id, users, 'public_id');
   if (!user) return res.status(404).json({
@@ -75,7 +79,7 @@ router.put('/user/:id', (req, res) => {
     }).catch(err => console.log(err));
 });
 
-router.delete('/user/:id', (req, res) => {
+router.delete('/user/:id', auth, requireAdmin, (req, res) => {
   const { id } = req.params;
   const { item: user, index } = findItem(id, users, 'public_id');
   if (!user) return res.status(404).json({
