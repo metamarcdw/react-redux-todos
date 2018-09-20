@@ -13,7 +13,7 @@ const auth = passport.authenticate('jwt', { session: false });
 const router = express.Router();
 
 function requireAdmin(req, res, next) {
-  if (!req.user.admin) res.status(401).json({
+  if (!req.user.admin) return res.status(401).json({
     msg: 'Must be admin'
   });
   next();
