@@ -1,4 +1,4 @@
-import prod_secrets from '../prod_secrets';
+import prod_secrets from './prod_secrets';
 
 const expected_keys = [ 'jwt_secret', 'mail_pswd' ];
 const secret_keys = Object.keys(prod_secrets);
