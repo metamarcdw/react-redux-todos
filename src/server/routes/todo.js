@@ -14,7 +14,7 @@ async function getMyTodos(myId) {
   return await Todo.findAll({
     where: { user_id: myId },
     attributes: {
-      exclude: ['userId']
+      exclude: ['UserId']
     }
   });
 }
