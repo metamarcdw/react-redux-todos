@@ -14,31 +14,35 @@ import { userRoutes, todoRoutes, loginRoute } from './routes';
 const app = express();
 const config = getConfig();
 
-const gmailer = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: config.MAIL_USERNAME,
-    pass: config.MAIL_PASSWORD
-  }
-});
-
-const errorLog = morgan('common', {
-  skip: (req, res) => true, // res.statusCode < 500,
-  stream: {
-    write: str => {
-      const mailOptions = {
-        from: config.MAIL_USERNAME,
-        to: config.ADMINS,
-        subject: 'ExpressJS server error',
-        html: str
-      };
-      gmailer.sendMail(mailOptions, (err, info) => {
-        if (err) console.log(err);
-        console.log(`Sent error log to admins:\n${info}`);
-      })
+function createErrorLog() {
+  const gmailer = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: config.MAIL_USERNAME,
+      pass: config.MAIL_PASSWORD
     }
-  }
-});
+  });
+
+  const errorLog = morgan('common', {
+    skip: (req, res) => true, // res.statusCode < 500,
+    stream: {
+      write: str => {
+        const mailOptions = {
+          from: config.MAIL_USERNAME,
+          to: config.ADMINS,
+          subject: 'ExpressJS server error',
+          html: str
+        };
+        gmailer.sendMail(mailOptions, (err, info) => {
+          if (err) console.log(err);
+          console.log(`Sent error log to admins:\n${info}`);
+        })
+      }
+    }
+  });
+
+  return errorLog
+}
 
 const corsOptions = {
   origin: [
@@ -64,7 +68,8 @@ const strategy = new jwtStrategy(jwtOptions, (payload, done) => {
 });
 
 app.use(express.json());
-app.use(errorLog);
+if (process.env.NODE_ENV === 'production')
+  app.use(createErrorLog());
 
 app.use(userRoutes);
 app.use(todoRoutes);

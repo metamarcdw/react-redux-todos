@@ -1,0 +1,23 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./db.sqlite3"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory"
+  },
+  "production": {
+    "username": "metamarcdw",
+    "database": "metamarcdw$todos_fs",
+    "host": "metamarcdw.mysql.pythonanywhere-services.com",
+    "dialect": "mysql",
+
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    }
+  }
+}
