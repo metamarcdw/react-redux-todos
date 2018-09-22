@@ -4,7 +4,7 @@ import Joi from 'joi';
 import passport from 'passport';
 import uuid from 'uuid/v4';
 
-import { users } from '../db';
+import { users } from '../mock_db';
 import { userSerializer } from '../serializers';
 import { newUserSchema } from '../schemas';
 import { findItem } from '../helpers';

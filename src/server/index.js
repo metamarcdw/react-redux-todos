@@ -7,7 +7,7 @@ import passport from 'passport';
 import passportJwt from 'passport-jwt';
 
 import getConfig from './config';
-import { users } from './db';
+import { users } from './mock_db';
 import { findItem } from './helpers';
 import { userRoutes, todoRoutes, loginRoute } from './routes';
 

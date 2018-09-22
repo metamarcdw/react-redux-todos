@@ -10,6 +10,7 @@ const db = {};
 
 if (env === 'production') {
   const dbPassword = require('../config').getConfig().DB_PSWD;
+  console.log(dbPassword);
   config.password = dbPassword;
 }
 

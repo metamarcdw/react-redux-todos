@@ -3,7 +3,7 @@ import serialize from 'express-serializer';
 import Joi from 'joi';
 import passport from 'passport';
 
-import { todos } from '../db';
+import { todos } from '../mock_db';
 import { todoSerializer } from '../serializers';
 import { newTodoSchema } from '../schemas';
 import { findItem } from '../helpers';

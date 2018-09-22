@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import basicAuth from 'express-basic-auth';
 
 import getConfig from '../config';
-import { users } from '../db';
+import { users } from '../mock_db';
 import { findItem } from '../helpers';
 
 const config = getConfig();
