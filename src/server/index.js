@@ -65,7 +65,7 @@ const strategy = new jwtStrategy(jwtOptions, async (payload, done) => {
   const user = await User.findOne({
     where: { name: payload.name }
   });
-  return done(null, user.dataValues || false);
+  return done(null, user || false);
 });
 
 app.use(express.json());
