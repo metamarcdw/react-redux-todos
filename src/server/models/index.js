@@ -9,7 +9,8 @@ const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env]
 const db = {};
 
 if (env === 'production') {
-  const dbPassword = require('../config').getConfig().DB_PSWD;
+  const getConfig = require('../config').default;
+  const dbPassword = getConfig().DB_PSWD;
   console.log(dbPassword);
   config.password = dbPassword;
 }
