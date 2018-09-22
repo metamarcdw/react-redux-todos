@@ -4,10 +4,9 @@ import Joi from 'joi';
 import passport from 'passport';
 import uuid from 'uuid/v4';
 
-import { users } from '../mock_db';
+import { User } from '../models';
 import { userSerializer } from '../serializers';
 import { newUserSchema } from '../schemas';
-import { findItem } from '../helpers';
 
 const auth = passport.authenticate('jwt', { session: false });
 const router = express.Router();
@@ -19,78 +18,76 @@ function requireAdmin(req, res, next) {
   next();
 }
 
-router.get('/user', auth, requireAdmin, (req, res) => {
+router.get('/user', auth, requireAdmin, async (req, res) => {
+  const users = await User.findAll();
   if (users.length < 1) return res.status(404).json({
     msg: 'No users found.'
   });
 
-  serialize(req, users, userSerializer)
-    .then(json => {
-      res.json(json);
-    }).catch(err => console.log(err));
+  res.json(
+    await serialize(req, users, userSerializer)
+  );
 });
 
-router.get('/user/:id', auth, requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const { item: user } = findItem(id, users, 'public_id');
+router.get('/user/:id', auth, requireAdmin, async (req, res) => {
+  const user = await User.findOne({
+    where: { public_id: req.params.id }
+  });
   if (!user) return res.status(404).json({
     msg: 'User not found'
   });
 
-  serialize(req, user, userSerializer)
-    .then(json => {
-      res.json(json);
-    }).catch(err => console.log(err));
+  res.json(
+    await serialize(req, user, userSerializer)
+  );
 });
 
-router.post('/user', (req, res) => {
+router.post('/user', async (req, res) => {
   const { value, error } = Joi.validate(req.body, newUserSchema);
   if (error) return res.status(400).json({
     msg: error.details[0].message
   });
 
   const { name, password } = value;
-  const newUser = {
-    id: users.length + 1,
-    public_id: uuid(),
+  const newUser = await User.create({
     name,
     password_hash: password,
+    public_id: uuid(),
     admin: false
-  };
-  users.push(newUser);
+  });
 
-  serialize(req, newUser, userSerializer)
-    .then(json => {
-      res.json({ new_user: json });
-    }).catch(err => console.log(err));
+  res.json({
+    new_user: await serialize(req, newUser, userSerializer)
+  });
 });
 
-router.put('/user/:id', auth, requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const { item: user } = findItem(id, users, 'public_id');
+router.put('/user/:id', auth, requireAdmin, async (req, res) => {
+  const user = await User.findOne({
+    where: { public_id: req.params.id }
+  });
   if (!user) return res.status(404).json({
     msg: 'User not found'
   });
-
   user.admin = true;
-  serialize(req, user, userSerializer)
-    .then(json => {
-      res.json({ promoted_user: json });
-    }).catch(err => console.log(err));
+  await user.save();
+
+  res.json({
+    promoted_user: await serialize(req, user, userSerializer)
+  });
 });
 
-router.delete('/user/:id', auth, requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const { item: user, index } = findItem(id, users, 'public_id');
+router.delete('/user/:id', auth, requireAdmin, async (req, res) => {
+  const user = await User.findOne({
+    where: { public_id: req.params.id }
+  });
   if (!user) return res.status(404).json({
     msg: 'User not found'
   });
+  await user.destroy();
 
-  users.splice(index, 1);
-  serialize(req, user, userSerializer)
-    .then(json => {
-      res.json({ deleted_user: json });
-    }).catch(err => console.log(err));
+  res.json({
+    deleted_user: await serialize(req, user, userSerializer)
+  });
 });
 
 export default router;

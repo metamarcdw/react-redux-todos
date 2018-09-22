@@ -24,7 +24,7 @@ export default function getConfig() {
   const mode = process.env.NODE_ENV || 'development';
   if (mode === 'production') {
     return productionConfig;
-  } else if (mode === 'development' || mode === 'testing') {
+  } else if (mode === 'development' || mode === 'test') {
     return developmentConfig;
   } else {
     throw new Error(' * Mode variable not set');
