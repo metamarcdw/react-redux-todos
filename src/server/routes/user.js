@@ -12,41 +12,31 @@ const auth = passport.authenticate('jwt', { session: false });
 const router = express.Router();
 
 function requireAdmin(req, res, next) {
-  if (!req.user.admin) return res.status(401).json({
-    msg: 'Must be admin'
-  });
+  if (!req.user.admin)
+    return res.status(401).json({ msg: 'Must be admin' });
   next();
 }
 
 router.get('/user', auth, requireAdmin, async (req, res) => {
   const users = await User.findAll();
-  if (users.length < 1) return res.status(404).json({
-    msg: 'No users found.'
-  });
-
-  res.json(
-    await serialize(req, users, userSerializer)
-  );
+  if (users.length < 1)
+    return res.status(404).json({ msg: 'No users found.' });
+  res.json(await serialize(req, users, userSerializer));
 });
 
 router.get('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user) return res.status(404).json({
-    msg: 'User not found'
-  });
-
-  res.json(
-    await serialize(req, user, userSerializer)
-  );
+  if (!user)
+    return res.status(404).json({ msg: 'User not found' });
+  res.json(await serialize(req, user, userSerializer));
 });
 
 router.post('/user', async (req, res) => {
   const { value, error } = Joi.validate(req.body, newUserSchema);
-  if (error) return res.status(400).json({
-    msg: error.details[0].message
-  });
+  if (error)
+    return res.status(400).json({ msg: error.details[0].message });
 
   const { name, password } = value;
   const newUser = await User.create({
@@ -55,7 +45,6 @@ router.post('/user', async (req, res) => {
     public_id: uuid(),
     admin: false
   });
-
   res.json({
     new_user: await serialize(req, newUser, userSerializer)
   });
@@ -65,12 +54,11 @@ router.put('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user) return res.status(404).json({
-    msg: 'User not found'
-  });
+  if (!user)
+    return res.status(404).json({ msg: 'User not found' });
+
   user.admin = true;
   await user.save();
-
   res.json({
     promoted_user: await serialize(req, user, userSerializer)
   });
@@ -80,11 +68,10 @@ router.delete('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user) return res.status(404).json({
-    msg: 'User not found'
-  });
-  await user.destroy();
+  if (!user)
+    return res.status(404).json({ msg: 'User not found' });
 
+  await user.destroy();
   res.json({
     deleted_user: await serialize(req, user, userSerializer)
   });

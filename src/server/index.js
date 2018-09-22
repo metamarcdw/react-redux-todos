@@ -7,8 +7,7 @@ import passport from 'passport';
 import passportJwt from 'passport-jwt';
 
 import getConfig from './config';
-import { users } from './mock_db';
-import { findItem } from './helpers';
+import { User } from './models';
 import { userRoutes, todoRoutes, loginRoute } from './routes';
 
 const app = express();
@@ -62,9 +61,11 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.JWT_SECRET_KEY
 };
-const strategy = new jwtStrategy(jwtOptions, (payload, done) => {
-  const { item: user } = findItem(payload.id, users, 'public_id');
-  return done(null, user || false);
+const strategy = new jwtStrategy(jwtOptions, async (payload, done) => {
+  const user = await User.findOne({
+    where: { name: payload.name }
+  });
+  return done(null, user.dataValues || false);
 });
 
 app.use(express.json());
