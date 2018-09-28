@@ -1,6 +1,7 @@
 import express from 'express';
 import serialize from 'express-serializer';
 import Joi from 'joi';
+import { UniqueConstraintError } from 'sequelize/lib/errors';
 import passport from 'passport';
 import uuid from 'uuid/v4';
 
@@ -19,7 +20,7 @@ function requireAdmin(req, res, next) {
 
 router.get('/user', auth, requireAdmin, async (req, res) => {
   const users = await User.findAll();
-  if (users.length < 1)
+  if (!users)
     return res.status(404).json({ msg: 'No users found.' });
   res.json(await serialize(req, users, userSerializer));
 });
@@ -39,12 +40,21 @@ router.post('/user', async (req, res) => {
     return res.status(400).json({ msg: error.details[0].message });
 
   const { name, password } = value;
-  const newUser = await User.create({
-    name,
-    password_hash: password,
-    public_id: uuid(),
-    admin: false
-  });
+  let newUser;
+  try {
+    newUser = await User.create({
+      name,
+      password_hash: password,
+      public_id: uuid(),
+      admin: false
+    });
+  } catch (err) {
+    if (err instanceof UniqueConstraintError) {
+      return res.status(400).json({msg: 'A user with this name already exists'});
+    } else {
+      throw err;
+    }
+  }
   res.json({
     new_user: await serialize(req, newUser, userSerializer)
   });
