@@ -4,7 +4,10 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 
 import passport from 'passport';
-import passportJwt from 'passport-jwt';
+import {
+  Strategy as JwtStrategy,
+  ExtractJwt
+} from 'passport-jwt';
 
 import getConfig from './config';
 import { User } from './models';
@@ -55,8 +58,6 @@ const corsOptions = {
   credentials: true
 };
 
-const JwtStrategy = passportJwt.Strategy;
-const ExtractJwt = passportJwt.ExtractJwt;
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.JWT_SECRET_KEY
@@ -69,7 +70,9 @@ const strategy = new JwtStrategy(jwtOptions, async (payload, done) => {
 });
 
 app.use(express.json());
-if (process.env.NODE_ENV === 'production') {
+
+const ENV = process.env.NODE_ENV || 'development';
+if (ENV === 'production') {
   app.use(createErrorLog());
 }
 
@@ -84,4 +87,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(` * Running api in ${ENV} mode`);
+  console.log(` * Listening on port ${PORT}`);
+});
