@@ -36,7 +36,7 @@ module.exports = {
       where: { admin: true }
     });
 
-    return await queryInterface.bulkInsert('Todos', [
+    const result = await queryInterface.bulkInsert('Todos', [
       {
         text: 'Do a thing',
         complete: true,
@@ -51,6 +51,8 @@ module.exports = {
         updatedAt: new Date()
       }
     ], {});
+
+    return result;
   },
 
   down: async (queryInterface, Sequelize) => {

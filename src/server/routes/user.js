@@ -12,16 +12,16 @@ import { newUserSchema } from '../schemas';
 const auth = passport.authenticate('jwt', { session: false });
 const router = express.Router();
 
-function requireAdmin(req, res, next) {
-  if (!req.user.admin)
+function requireAdmin (req, res, next) {
+  if (!req.user.admin) {
     return res.status(401).json({ msg: 'Must be admin' });
+  }
   next();
 }
 
 router.get('/user', auth, requireAdmin, async (req, res) => {
   const users = await User.findAll();
-  if (!users)
-    return res.status(404).json({ msg: 'No users found.' });
+  if (!users) return res.status(404).json({ msg: 'No users found.' });
   res.json(await serialize(req, users, userSerializer));
 });
 
@@ -29,15 +29,13 @@ router.get('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user)
-    return res.status(404).json({ msg: 'User not found' });
+  if (!user) return res.status(404).json({ msg: 'User not found' });
   res.json(await serialize(req, user, userSerializer));
 });
 
 router.post('/user', async (req, res) => {
   const { value, error } = Joi.validate(req.body, newUserSchema);
-  if (error)
-    return res.status(400).json({ msg: error.details[0].message });
+  if (error) return res.status(400).json({ msg: error.details[0].message });
 
   const { name, password } = value;
   let newUser;
@@ -50,7 +48,7 @@ router.post('/user', async (req, res) => {
     });
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
-      return res.status(400).json({msg: 'A user with this name already exists'});
+      return res.status(400).json({ msg: 'A user with this name already exists' });
     } else {
       throw err;
     }
@@ -64,8 +62,7 @@ router.put('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user)
-    return res.status(404).json({ msg: 'User not found' });
+  if (!user) return res.status(404).json({ msg: 'User not found' });
 
   user.admin = true;
   await user.save();
@@ -78,8 +75,7 @@ router.delete('/user/:id', auth, requireAdmin, async (req, res) => {
   const user = await User.findOne({
     where: { public_id: req.params.id }
   });
-  if (!user)
-    return res.status(404).json({ msg: 'User not found' });
+  if (!user) return res.status(404).json({ msg: 'User not found' });
 
   await user.destroy();
   res.json({

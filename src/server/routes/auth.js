@@ -17,7 +17,7 @@ const auth = basicAuth({
     if (!user) return false;
     return username === user.name && password === user.password_hash;
   },
-  unauthorizedResponse: { msg: "Login attempt failed." }
+  unauthorizedResponse: { msg: 'Login attempt failed.' }
 });
 
 router.get('/login', auth, async (req, res) => {

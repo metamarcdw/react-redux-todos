@@ -1,4 +1,4 @@
-export function userSerializer(req, user) {
+export function userSerializer (req, user) {
   return {
     id: user.public_id,
     name: user.name,
@@ -7,7 +7,7 @@ export function userSerializer(req, user) {
   };
 }
 
-export function todoSerializer(req, todo) {
+export function todoSerializer (req, todo) {
   const { id, text, complete } = todo;
   return { id, text, complete };
 }

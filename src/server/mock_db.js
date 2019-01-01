@@ -7,9 +7,9 @@ export const users = [
 ];
 
 export const todos = [
-  { id: 1, text: "Do a thing1", complete: true, user_id: 1 },
-  { id: 2, text: "Do a thing2", complete: false, user_id: 1 },
-  { id: 3, text: "Do a thing3", complete: false, user_id: 2 },
-  { id: 4, text: "Do a thing4", complete: false, user_id: 2 },
-  { id: 5, text: "Do a thing5", complete: false, user_id: 3 }
+  { id: 1, text: 'Do a thing1', complete: true, user_id: 1 },
+  { id: 2, text: 'Do a thing2', complete: false, user_id: 1 },
+  { id: 3, text: 'Do a thing3', complete: false, user_id: 2 },
+  { id: 4, text: 'Do a thing4', complete: false, user_id: 2 },
+  { id: 5, text: 'Do a thing5', complete: false, user_id: 3 }
 ];
