@@ -1,4 +1,4 @@
-import prodSecrets from './prod_secrets';
+import prodSecrets from './prod-secrets.json';
 
 const expectedKeys = [ 'jwt_secret', 'mail_pswd' ];
 const secretKeys = Object.keys(prodSecrets);
@@ -12,8 +12,6 @@ const productionConfig = {
   MAIL_USERNAME: 'todos.fs.mailer',
   MAIL_PASSWORD: prodSecrets.mail_pswd,
   ADMINS: ['marcdw87@gmail.com'],
-
-  DB_PSWD: prodSecrets.db_pswd,
   JWT_SECRET_KEY: prodSecrets.jwt_secret
 };
 

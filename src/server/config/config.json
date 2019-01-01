@@ -8,9 +8,10 @@
     "storage": ":memory"
   },
   "production": {
-    "username": "metamarcdw",
-    "database": "metamarcdw$todos_fs",
-    "host": "metamarcdw.mysql.pythonanywhere-services.com",
+    "username": "root",
+    "password": "dbpassword",
+    "database": "todos_fs",
+    "host": "localhost",
     "dialect": "mysql",
 
     "pool": {

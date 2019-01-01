@@ -8,7 +8,7 @@
     "win": "node_modules\\.bin\\nodemon -e js --watch . --exec \"npm run winserver\"",
     "server": "node_modules/.bin/babel-node index.js",
     "winserver": "node_modules\\.bin\\babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "createdb": "docker run -p 3306:3306 --name rrt-mariadb -e MYSQL_ROOT_PASSWORD=dbpassword -d mariadb:latest"
   },
   "keywords": [],
   "author": "",
