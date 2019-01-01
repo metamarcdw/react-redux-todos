@@ -21,4 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 prod_secrets.json
+package-lock.json
 *.sqlite3
+*.code-workspace
