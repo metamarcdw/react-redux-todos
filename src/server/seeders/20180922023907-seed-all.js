@@ -1,5 +1,6 @@
 'use strict';
 const uuid = require('uuid/v4');
+const bcrypt = require('bcrypt');
 const models = require('../models');
 
 // sequelize: cannot seed association values in DB table
@@ -7,25 +8,27 @@ const models = require('../models');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const passwordHash = await bcrypt.hash('password', 10);
+
     await queryInterface.bulkInsert('Users', [
       {
         public_id: uuid(),
         name: 'Snoop',
-        password_hash: 'password',
+        password_hash: passwordHash,
         admin: true,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
         public_id: uuid(),
         name: 'Scooby',
-        password_hash: 'password',
+        password_hash: passwordHash,
         admin: false,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
         public_id: uuid(),
         name: 'Herbie',
-        password_hash: 'password',
+        password_hash: passwordHash,
         admin: false,
         createdAt: new Date(),
         updatedAt: new Date()

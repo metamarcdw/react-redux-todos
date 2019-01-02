@@ -4,6 +4,7 @@ import Joi from 'joi';
 import { UniqueConstraintError } from 'sequelize/lib/errors';
 import passport from 'passport';
 import uuid from 'uuid/v4';
+import bcrypt from 'bcrypt';
 
 import { User } from '../models';
 import { userSerializer } from '../serializers';
@@ -38,11 +39,13 @@ router.post('/user', async (req, res) => {
   if (error) return res.status(400).json({ msg: error.details[0].message });
 
   const { name, password } = value;
+  const passwordHash = await bcrypt.hash(password, 10);
+
   let newUser;
   try {
     newUser = await User.create({
       name,
-      password_hash: password,
+      password_hash: passwordHash,
       public_id: uuid(),
       admin: false
     });

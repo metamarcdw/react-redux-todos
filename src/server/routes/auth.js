@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import basicAuth from 'express-basic-auth';
+import bcrypt from 'bcrypt';
 
 import getConfig from '../config';
 import { User } from '../models';
@@ -15,12 +16,13 @@ const auth = basicAuth({
       where: { name: username }
     });
     if (!user) return false;
-    return username === user.name && password === user.password_hash;
+    const isCorrectPassword = await bcrypt.compare(password, user.password_hash);
+    return username === user.name && isCorrectPassword;
   },
   unauthorizedResponse: { msg: 'Login attempt failed.' }
 });
 
-router.get('/login', auth, async (req, res) => {
+router.get('/login', auth, (req, res) => {
   const payload = { name: req.auth.user };
   const token = jwt.sign(payload, config.JWT_SECRET_KEY, { expiresIn: '30m' });
   res.json({ token });
