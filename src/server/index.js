@@ -55,7 +55,9 @@ const corsOptions = {
     'Content-Type',
     'Authorization'
   ],
-  credentials: true
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
+  preflightContinue: true
 };
 
 const jwtOptions = {
