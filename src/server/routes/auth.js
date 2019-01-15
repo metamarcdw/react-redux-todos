@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import basicAuth from 'express-basic-auth';
 import bcrypt from 'bcrypt';
 
-import getConfig from '../config';
+import { getConfig } from '../config';
 import { User } from '../models';
 
 const config = getConfig();

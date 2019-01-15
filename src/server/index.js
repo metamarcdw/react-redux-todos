@@ -9,7 +9,7 @@ import {
   ExtractJwt
 } from 'passport-jwt';
 
-import getConfig from './config';
+import { getConfig } from './config';
 import { User } from './models';
 import { userRoutes, todoRoutes, loginRoute } from './routes';
 
