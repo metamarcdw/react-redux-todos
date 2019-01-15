@@ -1,4 +1,4 @@
-import prodSecrets from './prod-secrets.json';
+const prodSecrets = require('./prod-secrets.json');
 
 const expectedKeys = [ 'jwt_secret', 'mail_pswd' ];
 const secretKeys = Object.keys(prodSecrets);
@@ -19,7 +19,7 @@ const developmentConfig = {
   JWT_SECRET_KEY: 'asecret'
 };
 
-export default function getConfig () {
+module.exports.getConfig = function () {
   const mode = process.env.NODE_ENV || 'development';
   if (mode === 'production') {
     return productionConfig;
@@ -28,4 +28,4 @@ export default function getConfig () {
   } else {
     throw new Error(' * Mode variable not set');
   }
-}
+};

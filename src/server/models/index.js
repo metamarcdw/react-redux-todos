@@ -8,12 +8,6 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 const db = {};
 
-if (env === 'production') {
-  const getConfig = require('../config').default;
-  const dbPassword = getConfig().DB_PSWD;
-  config.password = dbPassword;
-}
-
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
